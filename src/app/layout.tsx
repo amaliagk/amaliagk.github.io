@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import CursorGlow from "@/components/CursorGlow";
+import { siteUrl } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -28,9 +29,25 @@ const dmSerif = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Amalia Gkigkolian — Graphic Designer & Marketing Creative",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Amalia Gkigkolian — Graphic Designer & Marketing Creative",
+    template: "%s — Amalia Gkigkolian",
+  },
   description:
     "Strategic visual communications across branding, digital campaigns, websites, presentations, video, print, and events.",
+  openGraph: {
+    type: "website",
+    siteName: "Amalia Gkigkolian",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f5f6fd",
 };
 
 export default function RootLayout({
@@ -41,6 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${jakarta.variable} ${dmSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-text">

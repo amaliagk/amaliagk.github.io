@@ -1,5 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { workCategories } from "@/lib/content";
+import { caseStudies } from "@/lib/case-studies";
 
 const GRADIENTS = [
   "from-primary/25 via-transparent to-secondary/20",
@@ -19,26 +21,45 @@ export default function SelectedWork() {
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {workCategories.map((category, i) => (
-            <Reveal key={category.title} delay={i * 80}>
-              <article className="card-glass overflow-hidden rounded-2xl">
-                <div className="glass-sheen relative aspect-[4/3]">
-                  <div
-                    className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br ${
-                      GRADIENTS[i % GRADIENTS.length]
-                    }`}
-                  >
-                    <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
-                      Case studies coming soon
+          {caseStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 80}>
+              <Link href={`/work/${study.slug}`} className="group block">
+                <article className="card-glass transition-soft overflow-hidden rounded-2xl group-hover:-translate-y-1 group-hover:shadow-[0_20px_40px_-18px_rgba(178,75,243,0.35)]">
+                  <div className="glass-sheen relative aspect-[4/3]">
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${
+                        GRADIENTS[i % GRADIENTS.length]
+                      }`}
+                    />
+                    {study.cover ? (
+                      <Image
+                        src={study.cover.src}
+                        alt={study.cover.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 448px"
+                        className="transition-soft object-cover group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
+                          Case studies coming soon
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="relative flex items-center justify-between p-6">
+                    <h3 className="text-lg font-semibold text-text">
+                      {study.title}
+                    </h3>
+                    <span
+                      aria-hidden="true"
+                      className="transition-soft text-text-muted group-hover:translate-x-1 group-hover:text-primary-strong"
+                    >
+                      →
                     </span>
                   </div>
-                </div>
-                <div className="relative p-6">
-                  <h3 className="text-lg font-semibold text-text">
-                    {category.title}
-                  </h3>
-                </div>
-              </article>
+                </article>
+              </Link>
             </Reveal>
           ))}
         </div>

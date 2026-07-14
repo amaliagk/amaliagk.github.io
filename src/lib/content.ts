@@ -22,12 +22,7 @@ export const introduction = {
   ],
 };
 
-export const workCategories = [
-  { title: "Corporate Branding & Visual Identity" },
-  { title: "Corporate Presentations" },
-  { title: "Digital Campaigns & Social Media" },
-  { title: "Exhibitions & Events" },
-];
+export { caseStudies } from "./case-studies";
 
 export const experience = [
   {
