@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+:root {
+  /* Neutral, light theme — tinted rather than flat grey */
+  --bg: #f5f6fd;
+  --bg-elevated: #ffffff;
+  --surface: #ece9fb;
+  --border: #d9d9e2;
+  --text: #18181b;
+  --text-muted: #62626a;
+
+  /* Primary / Secondary / Accent — saturated holographic trio (decorative use:
+     backgrounds, glows, borders, gradients) */
+  --primary: #2f8af5;
+  --secondary: #b24bf3;
+  --cyan: #22e0ff;
+
+  /* Darker, AA-contrast-safe variants for small text, links, and gradient headings */
+  --primary-strong: #175ca8;
+  --secondary-strong: #7c1fb0;
+
+  --button: var(--primary);
+  --button-hover: #1c74e0;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-cyan: var(--cyan);
+  --color-primary-strong: var(--primary-strong);
+  --color-secondary-strong: var(--secondary-strong);
+  --color-button: var(--button);
+  --color-button-hover: var(--button-hover);
+
+  --font-display: var(--font-dmserif);
+  --font-sans: var(--font-jakarta);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Ambient wash so the base never reads as flat grey, even on clean sections.
+   Blue and purple are layered together (not just side by side) so they read
+   as one combined holographic wash rather than isolated tinted corners. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(48% 40% at 6% 0%, color-mix(in srgb, var(--primary) 16%, transparent), transparent 72%),
+    radial-gradient(44% 38% at 28% 8%, color-mix(in srgb, var(--secondary) 12%, transparent), transparent 70%),
+    radial-gradient(42% 36% at 100% 18%, color-mix(in srgb, var(--secondary) 14%, transparent), transparent 70%),
+    radial-gradient(40% 34% at 82% 6%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 70%),
+    radial-gradient(46% 40% at 12% 100%, color-mix(in srgb, var(--cyan) 8%, transparent), transparent 70%),
+    radial-gradient(44% 38% at 95% 96%, color-mix(in srgb, var(--secondary) 12%, transparent), transparent 70%),
+    radial-gradient(40% 36% at 70% 88%, color-mix(in srgb, var(--primary) 10%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+::selection {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+/* Focus state: blue outline + soft purple halo, per spec */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--secondary) 45%, transparent);
+}
+
+.transition-soft {
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1), border-color 450ms ease, background-color 450ms ease, color 450ms ease, opacity 450ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .transition-soft,
+  .reveal,
+  .holo-drift {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Minimal scroll-reveal for text/sections */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gradient heading fill: vibrant pastel blue -> purple. Headings are always
+   large display text, so a lighter, more saturated pastel (rather than the
+   deep -strong link colours) both matches the brief and clears the 3:1
+   large-text contrast minimum. */
+.gradient-text {
+  background-image: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gentle drifting motion + breathing glow for holographic blobs */
+@keyframes holo-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.85; }
+  50% { transform: translate3d(0, -22px, 0) scale(1.12); opacity: 1; }
+}
+
+.holo-drift {
+  animation: holo-drift 9s ease-in-out infinite;
+}
+
+/* Subtle grain texture for holographic sections */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Holographic reflection: a diagonal light streak across glass surfaces */
+.glass-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-sheen::before {
+  content: "";
+  position: absolute;
+  inset: -40% -10%;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    color-mix(in srgb, white 55%, transparent) 48%,
+    transparent 62%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Full-bleed section wash: the "holographic section" treatment.
+   Blue and purple overlap deliberately so the combination itself reads as
+   the accent, with cyan kept as a light supporting touch. */
+.section-holo {
+  position: relative;
+  background:
+    radial-gradient(55% 65% at 8% 0%, color-mix(in srgb, var(--primary) 18%, transparent), transparent 72%),
+    radial-gradient(48% 58% at 32% 12%, color-mix(in srgb, var(--secondary) 14%, transparent), transparent 70%),
+    radial-gradient(48% 58% at 92% 100%, color-mix(in srgb, var(--secondary) 20%, transparent), transparent 70%),
+    radial-gradient(42% 50% at 68% 90%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%),
+    radial-gradient(40% 45% at 50% 50%, color-mix(in srgb, var(--cyan) 8%, transparent), transparent 70%),
+    var(--bg-elevated);
+}
+
+/* Glassmorphism buttons — neutral glass at rest; colour and outline
+   are introduced only on hover/focus, never shown by default. */
+.btn-glass {
+  position: relative;
+  z-index: 0;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 24px -10px rgba(24, 24, 27, 0.18);
+  transition: box-shadow 450ms cubic-bezier(0.16, 1, 0.3, 1), transform 450ms cubic-bezier(0.16, 1, 0.3, 1), border-color 450ms ease;
+}
+
+/* Gradient ring lives above the glass fill but below the label (the label
+   text gets an explicit z-10 span in markup) so it can never wash out text. */
+.btn-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-glass:hover::after,
+.btn-glass:focus-visible::after {
+  opacity: 1;
+}
+
+.btn-glass-primary:hover,
+.btn-glass-primary:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 8px 30px -8px color-mix(in srgb, var(--secondary) 65%, transparent),
+    0 8px 30px -10px color-mix(in srgb, var(--cyan) 45%, transparent);
+}
+
+.btn-glass-secondary:hover,
+.btn-glass-secondary:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 8px 24px -10px color-mix(in srgb, var(--secondary) 50%, transparent),
+    0 8px 24px -12px color-mix(in srgb, var(--cyan) 35%, transparent);
+}
+
+/* Holographic glass card (Selected Work): static surface, no hover cue —
+   these cards aren't interactive yet, so nothing here pretends to be. */
+.card-glass {
+  position: relative;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--border);
+}
+
+/* Custom cursor: circular glow (desktop, fine-pointer only) */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  box-shadow: 0 0 14px 4px color-mix(in srgb, var(--cyan) 55%, transparent);
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid color-mix(in srgb, var(--primary) 70%, transparent);
+  background: color-mix(in srgb, var(--secondary) 12%, transparent);
+  transition: opacity 350ms ease, width 350ms cubic-bezier(0.16, 1, 0.3, 1), height 350ms cubic-bezier(0.16, 1, 0.3, 1), border-color 350ms ease, background-color 350ms ease;
+}
+
+.cursor-ring.is-active {
+  width: 54px;
+  height: 54px;
+  border-color: color-mix(in srgb, var(--cyan) 80%, transparent);
+  background: color-mix(in srgb, var(--cyan) 14%, transparent);
+}
+
+body.custom-cursor .cursor-dot,
+body.custom-cursor .cursor-ring {
+  opacity: 1;
+}
+
+@media (pointer: fine) {
+  body.custom-cursor,
+  body.custom-cursor a,
+  body.custom-cursor button {
+    cursor: none;
+  }
+}
+
+.cursor-particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--cyan) 80%, transparent), transparent 70%);
+  animation: particle-fade 650ms ease-out forwards;
+}
+
+@keyframes particle-fade {
+  from {
+    opacity: 0.7;
+    transform: translate3d(var(--px), var(--py), 0) translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(var(--px), var(--py), 0) translate(-50%, -50%) scale(0.2);
+  }
+}

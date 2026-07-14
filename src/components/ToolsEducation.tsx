@@ -1,0 +1,50 @@
+import Reveal from "@/components/Reveal";
+import { certifications, education, tools } from "@/lib/content";
+
+export default function ToolsEducation() {
+  return (
+    <section className="bg-bg-elevated px-6 py-24 sm:px-10">
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-16 md:grid-cols-2">
+        <Reveal>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
+            Tools
+          </h2>
+          <div className="mt-8 space-y-6">
+            {tools.map((group) => (
+              <div key={group.group}>
+                <h3 className="text-sm font-medium text-text">{group.group}</h3>
+                <p className="mt-2 text-text-muted">{group.items.join(" · ")}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
+            Education & Certifications
+          </h2>
+          <div className="mt-8 space-y-6">
+            <div>
+              <h3 className="text-sm font-medium text-text">Education</h3>
+              <ul className="mt-2 space-y-1 text-text-muted">
+                {education.map((e) => (
+                  <li key={e.program}>
+                    {e.program} — {e.school}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-text">Certifications</h3>
+              <ul className="mt-2 space-y-1 text-text-muted">
+                {certifications.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
