@@ -56,6 +56,29 @@ function GalleryFigure({ img }: { img: CaseStudyImage }) {
   );
 }
 
+function Collage({ images }: { images: CaseStudyImage[] }) {
+  return (
+    <div className="mt-6 grid auto-rows-[100px] grid-cols-2 gap-2 sm:auto-rows-[130px] sm:grid-cols-4">
+      {images.map((img, i) => (
+        <div
+          key={img.src}
+          className={`relative overflow-hidden rounded-xl ${
+            i === 0 ? "col-span-2 row-span-2" : ""
+          }`}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            sizes={i === 0 ? "(max-width: 640px) 100vw, 448px" : "(max-width: 640px) 50vw, 224px"}
+            className="object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -150,12 +173,23 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                   <p className="mt-4 max-w-2xl leading-relaxed text-text-muted">
                     {section.body}
                   </p>
-                  {section.images && section.images.length > 0 && (
-                    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                      {section.images.map((img) => (
-                        <GalleryFigure key={img.src} img={img} />
-                      ))}
+                  {section.comingSoon ? (
+                    <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
+                      <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
+                        Photos coming soon
+                      </span>
                     </div>
+                  ) : section.collage && section.images && section.images.length > 0 ? (
+                    <Collage images={section.images} />
+                  ) : (
+                    section.images &&
+                    section.images.length > 0 && (
+                      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        {section.images.map((img) => (
+                          <GalleryFigure key={img.src} img={img} />
+                        ))}
+                      </div>
+                    )
                   )}
                 </section>
               </Reveal>

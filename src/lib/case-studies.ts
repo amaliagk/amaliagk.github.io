@@ -13,6 +13,11 @@ export type CaseStudySection = {
   heading?: string;
   body: string;
   images?: CaseStudyImage[];
+  /** Render images as a compact mosaic collage (first tile featured) rather
+   *  than the default 2-column grid. */
+  collage?: boolean;
+  /** Show a compact "coming soon" placeholder instead of images (empty event). */
+  comingSoon?: boolean;
 };
 
 export type CaseStudyVideo = {
@@ -255,67 +260,43 @@ export const caseStudies: CaseStudy[] = [
     cover: {
       src: "/work/exhibitions-events/cover.webp",
       alt: "Global STSS launch event backdrop wall with the group's family of brand logos",
-      width: 1800,
-      height: 1200,
+      width: 1600,
+      height: 1067,
     },
-    gallery: [
-      {
-        src: "/work/exhibitions-events/eastmed-1.webp",
-        alt: "Elite Blue Group exhibition stand with a living green wall and product display",
-        width: 1800,
-        height: 1200,
-      },
-      {
-        src: "/work/exhibitions-events/eastmed-2.webp",
-        alt: "Elite Blue Group exhibition stand, further view",
-        width: 1800,
-        height: 1200,
-      },
-      {
-        src: "/work/exhibitions-events/eastmed-3.webp",
-        alt: "Exhibition stand detail",
-        width: 1800,
-        height: 1200,
-      },
-      {
-        src: "/work/exhibitions-events/stss-1.webp",
-        alt: "Global STSS launch event space",
-        width: 1800,
-        height: 1200,
-      },
-      {
-        src: "/work/exhibitions-events/stss-2.webp",
-        alt: "Global STSS launch event detail",
-        width: 1800,
-        height: 1200,
-      },
-      {
-        src: "/work/exhibitions-events/stss-3.webp",
-        alt: "Global STSS launch event branding",
-        width: 1800,
-        height: 1200,
-      },
-    ],
+    gallery: [],
     sections: [
       {
-        heading: "Context",
-        body: "Event identities for Fameline Holding Group launches and industry exhibitions — carried from the first invitation through to the physical space visitors walk into.",
-      },
-      {
-        heading: "Approach",
-        body: "I design the on-site environment as a whole: backdrops, booth graphics, branded plinths, and signage, so the space reflects the group's identity and its family of brands consistently — whether it's a product launch or an international trade exhibition.",
-      },
-      {
-        heading: "Event collateral",
-        body: "Alongside the built environment, each event needs its printed and standing pieces — roll-up banners, signage, and announcements — designed to match the launch identity.",
+        heading: "Global STSS — Launch",
+        body: "A launch event built as one branded environment for the group's family of brands — from the backdrop wall through to plinths and signage.",
+        collage: true,
         images: [
-          {
-            src: "/work/exhibitions-events/enginelink-rollup.webp",
-            alt: "EngineLink 2.0 launch roll-up banner",
-            width: 640,
-            height: 1600,
-          },
+          { src: "/work/exhibitions-events/stss-1.webp", alt: "Global STSS launch, event space", width: 1600, height: 1067 },
+          { src: "/work/exhibitions-events/stss-2.webp", alt: "Global STSS launch, branded detail", width: 1600, height: 1067 },
+          { src: "/work/exhibitions-events/stss-3.webp", alt: "Global STSS launch, guests", width: 1600, height: 1066 },
+          { src: "/work/exhibitions-events/stss-4.webp", alt: "Global STSS launch, staging", width: 1600, height: 1066 },
+          { src: "/work/exhibitions-events/stss-5.webp", alt: "Global STSS launch, branded elements", width: 1600, height: 1067 },
         ],
+      },
+      {
+        heading: "EastMed Exhibition",
+        body: "Exhibition stands for the group's brands at EastMed — including the Elite Blue Group booth with its living green wall and product display.",
+        collage: true,
+        images: [
+          { src: "/work/exhibitions-events/eastmed-1.webp", alt: "Elite Blue Group booth with a living green wall and product display", width: 1600, height: 1067 },
+          { src: "/work/exhibitions-events/eastmed-2.webp", alt: "Elite Blue Group booth, further view", width: 1600, height: 1066 },
+          { src: "/work/exhibitions-events/eastmed-3.webp", alt: "Exhibition stand detail", width: 1600, height: 1066 },
+          { src: "/work/exhibitions-events/eastmed-4.webp", alt: "Exhibition stand branding", width: 1600, height: 1067 },
+          { src: "/work/exhibitions-events/eastmed-5.webp", alt: "Exhibition stand, product shelf", width: 1066, height: 1600 },
+          { src: "/work/exhibitions-events/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
+          { src: "/work/exhibitions-events/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
+        ],
+      },
+      {
+        heading: "Sailing Regatta",
+        body: "Event identity and on-site branding for the group's sailing regatta.",
+        collage: true,
+        comingSoon: true,
+        images: [],
       },
     ],
   },
