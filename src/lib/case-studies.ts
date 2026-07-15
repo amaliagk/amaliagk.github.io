@@ -15,6 +15,15 @@ export type CaseStudySection = {
   images?: CaseStudyImage[];
 };
 
+export type CaseStudyVideo = {
+  src: string;
+  poster: string;
+  /** Poster/display dimensions, for aspect-ratio + CLS avoidance. */
+  width: number;
+  height: number;
+  title: string;
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -26,6 +35,7 @@ export type CaseStudy = {
    *  null until real work assets land in public/work/<slug>/. */
   cover: CaseStudyImage | null;
   gallery: CaseStudyImage[];
+  videos?: CaseStudyVideo[];
   /** Copy structure per design.md: Context -> Approach -> Outcome */
   sections: CaseStudySection[];
 };
@@ -49,7 +59,6 @@ export const caseStudies: CaseStudy[] = [
       width: 1800,
       height: 1272,
     },
-    gallery: [],
     sections: [
       {
         heading: "Context",
@@ -109,6 +118,26 @@ export const caseStudies: CaseStudy[] = [
         ],
       },
     ],
+    gallery: [
+      {
+        src: "/work/corporate-branding/gstss-brochure-1.webp",
+        alt: "Luminar Marine stern tube seal system brochure, cover",
+        width: 1132,
+        height: 1600,
+      },
+      {
+        src: "/work/corporate-branding/gstss-brochure-2.webp",
+        alt: "Luminar Marine brochure, inside spread",
+        width: 1132,
+        height: 1600,
+      },
+      {
+        src: "/work/corporate-branding/gstss-brochure-3.webp",
+        alt: "Luminar Marine brochure, inside spread",
+        width: 1132,
+        height: 1600,
+      },
+    ],
   },
   {
     slug: "corporate-presentations",
@@ -134,7 +163,7 @@ export const caseStudies: CaseStudy[] = [
     tags: [
       "Campaign key visual",
       "Social formats",
-      "Digital invitations",
+      "Motion & video",
       "Awareness campaigns",
     ],
     cover: {
@@ -163,6 +192,43 @@ export const caseStudies: CaseStudy[] = [
         height: 1080,
       },
     ],
+    videos: [
+      {
+        src: "/work/digital-campaigns/video/rebranding.mp4",
+        poster: "/work/digital-campaigns/video/rebranding.webp",
+        width: 1280,
+        height: 1280,
+        title: "Rebranding announcement",
+      },
+      {
+        src: "/work/digital-campaigns/video/gstss-announcement.mp4",
+        poster: "/work/digital-campaigns/video/gstss-announcement.webp",
+        width: 1280,
+        height: 720,
+        title: "Global STSS website announcement",
+      },
+      {
+        src: "/work/digital-campaigns/video/global-presence.mp4",
+        poster: "/work/digital-campaigns/video/global-presence.webp",
+        width: 720,
+        height: 1280,
+        title: "Global presence",
+      },
+      {
+        src: "/work/digital-campaigns/video/fhg-statistics.mp4",
+        poster: "/work/digital-campaigns/video/fhg-statistics.webp",
+        width: 720,
+        height: 1280,
+        title: "Group statistics",
+      },
+      {
+        src: "/work/digital-campaigns/video/meet-the-team.mp4",
+        poster: "/work/digital-campaigns/video/meet-the-team.webp",
+        width: 720,
+        height: 1280,
+        title: "Meet the team",
+      },
+    ],
     sections: [
       {
         heading: "Context",
@@ -170,7 +236,7 @@ export const caseStudies: CaseStudy[] = [
       },
       {
         heading: "Approach",
-        body: "I build each campaign around a single strong key visual, then adapt it for the formats it needs: square social posts, digital invitations, and internal announcements — keeping messaging, colour, and layout consistent across the set.",
+        body: "I build each campaign around a single strong key visual, then adapt it for the formats it needs: square social posts, digital invitations, and internal announcements — plus motion pieces for launches and announcements — keeping messaging, colour, and layout consistent across the set.",
       },
     ],
   },
@@ -238,6 +304,18 @@ export const caseStudies: CaseStudy[] = [
       {
         heading: "Approach",
         body: "I design the on-site environment as a whole: backdrops, booth graphics, branded plinths, and signage, so the space reflects the group's identity and its family of brands consistently — whether it's a product launch or an international trade exhibition.",
+      },
+      {
+        heading: "Event collateral",
+        body: "Alongside the built environment, each event needs its printed and standing pieces — roll-up banners, signage, and announcements — designed to match the launch identity.",
+        images: [
+          {
+            src: "/work/exhibitions-events/enginelink-rollup.webp",
+            alt: "EngineLink 2.0 launch roll-up banner",
+            width: 640,
+            height: 1600,
+          },
+        ],
       },
     ],
   },

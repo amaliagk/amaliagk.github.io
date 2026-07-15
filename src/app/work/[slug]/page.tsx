@@ -161,6 +161,38 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
               </Reveal>
             ))}
 
+            {study.videos && study.videos.length > 0 && (
+              <Reveal className="mt-16">
+                <section>
+                  <h2 className="font-display text-2xl font-normal tracking-tight text-text sm:text-3xl">
+                    Motion &amp; video
+                  </h2>
+                  <div className="mt-8 gap-6 [column-fill:_balance] sm:columns-2">
+                    {study.videos.map((video) => (
+                      <figure
+                        key={video.src}
+                        className="mb-6 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-black/5"
+                      >
+                        <video
+                          controls
+                          preload="metadata"
+                          playsInline
+                          poster={video.poster}
+                          className="w-full"
+                          style={{ aspectRatio: `${video.width} / ${video.height}` }}
+                        >
+                          <source src={video.src} type="video/mp4" />
+                        </video>
+                        <figcaption className="p-4 text-sm text-text-muted">
+                          {video.title}
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </section>
+              </Reveal>
+            )}
+
             {study.gallery.length > 0 && (
               <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {study.gallery.map((img) => (
