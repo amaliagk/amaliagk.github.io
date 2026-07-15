@@ -122,6 +122,10 @@ body::before {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* DM Serif Text has deep descenders; with clipped-text fill the last line's
+     descenders fall outside the painted box and render transparent (looks
+     cropped). Padding extends the paint region so g/y/p stay filled. */
+  padding-bottom: 0.16em;
 }
 
 /* Gentle drifting motion + breathing glow for holographic blobs */

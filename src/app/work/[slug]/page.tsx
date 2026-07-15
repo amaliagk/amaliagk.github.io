@@ -5,7 +5,56 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { caseStudies, getCaseStudy } from "@/lib/case-studies";
+import {
+  caseStudies,
+  getCaseStudy,
+  type CaseStudyImage,
+} from "@/lib/case-studies";
+
+function GalleryFigure({ img }: { img: CaseStudyImage }) {
+  if (img.contain) {
+    return (
+      <figure className="overflow-hidden rounded-2xl border border-border bg-bg-elevated">
+        <div className="flex aspect-[3/2] items-center justify-center p-10">
+          <Image
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            sizes="(max-width: 640px) 90vw, 40vw"
+            className="max-h-full w-auto max-w-full object-contain"
+          />
+        </div>
+        {img.caption && (
+          <figcaption className="border-t border-border p-4 text-sm text-text-muted">
+            {img.caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
+  return (
+    <figure className="card-glass overflow-hidden rounded-2xl">
+      <div
+        className="relative"
+        style={{ aspectRatio: `${img.width} / ${img.height}` }}
+      >
+        <Image
+          src={img.src}
+          alt={img.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className="object-cover"
+        />
+      </div>
+      {img.caption && (
+        <figcaption className="p-4 text-sm text-text-muted">
+          {img.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
 
 export const dynamicParams = false;
 
@@ -104,25 +153,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                   {section.images && section.images.length > 0 && (
                     <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
                       {section.images.map((img) => (
-                        <figure key={img.src} className="card-glass overflow-hidden rounded-2xl">
-                          <div
-                            className="relative"
-                            style={{ aspectRatio: `${img.width} / ${img.height}` }}
-                          >
-                            <Image
-                              src={img.src}
-                              alt={img.alt}
-                              fill
-                              sizes="(max-width: 640px) 100vw, 50vw"
-                              className="object-cover"
-                            />
-                          </div>
-                          {img.caption && (
-                            <figcaption className="p-4 text-sm text-text-muted">
-                              {img.caption}
-                            </figcaption>
-                          )}
-                        </figure>
+                        <GalleryFigure key={img.src} img={img} />
                       ))}
                     </div>
                   )}
@@ -133,25 +164,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
             {study.gallery.length > 0 && (
               <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {study.gallery.map((img) => (
-                  <figure key={img.src} className="card-glass overflow-hidden rounded-2xl">
-                    <div
-                      className="relative"
-                      style={{ aspectRatio: `${img.width} / ${img.height}` }}
-                    >
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                        className="object-cover"
-                      />
-                    </div>
-                    {img.caption && (
-                      <figcaption className="p-4 text-sm text-text-muted">
-                        {img.caption}
-                      </figcaption>
-                    )}
-                  </figure>
+                  <GalleryFigure key={img.src} img={img} />
                 ))}
               </div>
             )}

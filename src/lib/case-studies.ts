@@ -4,6 +4,9 @@ export type CaseStudyImage = {
   width: number;
   height: number;
   caption?: string;
+  /** Render with object-contain on a padded neutral card (logos, marks)
+   *  instead of object-cover (photos, full-bleed graphics). */
+  contain?: boolean;
 };
 
 export type CaseStudySection = {
@@ -32,18 +35,80 @@ export const caseStudies: CaseStudy[] = [
     slug: "corporate-branding",
     title: "Corporate Branding & Visual Identity",
     subtitle:
-      "Building coherent brand systems — from logo development to guidelines and applications.",
+      "Building coherent brand systems for a group of maritime and logistics companies — from logo development to stationery and applications.",
+    client: "Fameline Holding Group",
     tags: [
       "Logo development",
-      "Brand extensions",
+      "Brand systems",
       "Corporate stationery",
-      "Brand guidelines",
-      "Digital brand applications",
-      "Signage",
+      "Applications",
     ],
-    cover: null,
+    cover: {
+      src: "/work/corporate-branding/cover.webp",
+      alt: "Fameline Holding Group business cards in navy with an embossed monogram",
+      width: 1800,
+      height: 1272,
+    },
     gallery: [],
-    sections: [],
+    sections: [
+      {
+        heading: "Context",
+        body: "The Fameline Holding Group spans a portfolio of maritime and logistics brands. Each company needs an identity distinct enough to stand on its own, yet clearly part of one family. The work runs from logo development through to the stationery and applications that carry a brand day to day.",
+      },
+      {
+        heading: "Logo development",
+        body: "I developed and refined logo systems across several of the group's companies, keeping a shared logic in how each mark, wordmark, and colour palette behaves.",
+        images: [
+          {
+            src: "/work/corporate-branding/logo-tideway.webp",
+            alt: "Tideway Cargo Logistics logo",
+            width: 1000,
+            height: 387,
+            contain: true,
+          },
+          {
+            src: "/work/corporate-branding/logo-unichem.webp",
+            alt: "Unichem logo, horizontal lockup",
+            width: 1000,
+            height: 411,
+            contain: true,
+          },
+          {
+            src: "/work/corporate-branding/logo-zenglobal.webp",
+            alt: "ZenGlobal Cargo Logistics logo",
+            width: 1000,
+            height: 562,
+            contain: true,
+          },
+          {
+            src: "/work/corporate-branding/logo-shipwell.webp",
+            alt: "ShipWell logo",
+            width: 1000,
+            height: 1000,
+            contain: true,
+          },
+          {
+            src: "/work/corporate-branding/logo-zoomline.webp",
+            alt: "Zoomline logo",
+            width: 1000,
+            height: 1000,
+            contain: true,
+          },
+        ],
+      },
+      {
+        heading: "Applications",
+        body: "The identities extend into the everyday touchpoints — business cards, letterheads, and print collateral — with typography, colour, and logo placement kept consistent so every piece reads as one brand.",
+        images: [
+          {
+            src: "/work/corporate-branding/letterhead.webp",
+            alt: "Corporate letterhead layout",
+            width: 1500,
+            height: 1000,
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "corporate-presentations",
@@ -64,34 +129,117 @@ export const caseStudies: CaseStudy[] = [
     slug: "digital-campaigns",
     title: "Digital Campaigns & Social Media",
     subtitle:
-      "Campaign key visuals adapted across every digital touchpoint.",
+      "Campaign key visuals adapted across every digital touchpoint — from CSR initiatives to awareness days.",
+    client: "Fameline Holding Group",
     tags: [
       "Campaign key visual",
-      "LinkedIn & Instagram formats",
-      "Paid advertising visuals",
-      "Email campaigns",
-      "Website banners",
+      "Social formats",
+      "Digital invitations",
+      "Awareness campaigns",
     ],
-    cover: null,
-    gallery: [],
-    sections: [],
+    cover: {
+      src: "/work/digital-campaigns/cover.webp",
+      alt: "“Be the reason Lofou turns Green” tree-planting campaign invitation",
+      width: 1080,
+      height: 1080,
+    },
+    gallery: [
+      {
+        src: "/work/digital-campaigns/breast-cancer.webp",
+        alt: "Breast Cancer Awareness event invitation",
+        width: 1080,
+        height: 1080,
+      },
+      {
+        src: "/work/digital-campaigns/womens-day.webp",
+        alt: "International Women's Day social post",
+        width: 1080,
+        height: 1080,
+      },
+      {
+        src: "/work/digital-campaigns/easter.webp",
+        alt: "Easter greeting social post",
+        width: 1080,
+        height: 1080,
+      },
+    ],
+    sections: [
+      {
+        heading: "Context",
+        body: "Corporate social responsibility and awareness campaigns for the Fameline Holding Group — environmental initiatives, awareness days, and seasonal greetings — each needing a key visual that holds up across social formats and digital invitations.",
+      },
+      {
+        heading: "Approach",
+        body: "I build each campaign around a single strong key visual, then adapt it for the formats it needs: square social posts, digital invitations, and internal announcements — keeping messaging, colour, and layout consistent across the set.",
+      },
+    ],
   },
   {
     slug: "exhibitions-events",
     title: "Exhibitions & Events",
     subtitle:
-      "Event identities carried through from invitation to booth to follow-up.",
+      "Event identities carried from invitation through to on-site booth graphics, backdrops, and branded environments.",
+    client: "Fameline Holding Group",
     tags: [
       "Exhibition booth graphics",
       "Event identity",
-      "Invitations",
-      "Roll-up banners",
-      "Backdrops",
-      "Video walls",
+      "Backdrops & signage",
+      "Branded environments",
     ],
-    cover: null,
-    gallery: [],
-    sections: [],
+    cover: {
+      src: "/work/exhibitions-events/cover.webp",
+      alt: "Global STSS launch event backdrop wall with the group's family of brand logos",
+      width: 1800,
+      height: 1200,
+    },
+    gallery: [
+      {
+        src: "/work/exhibitions-events/eastmed-1.webp",
+        alt: "Elite Blue Group exhibition stand with a living green wall and product display",
+        width: 1800,
+        height: 1200,
+      },
+      {
+        src: "/work/exhibitions-events/eastmed-2.webp",
+        alt: "Elite Blue Group exhibition stand, further view",
+        width: 1800,
+        height: 1200,
+      },
+      {
+        src: "/work/exhibitions-events/eastmed-3.webp",
+        alt: "Exhibition stand detail",
+        width: 1800,
+        height: 1200,
+      },
+      {
+        src: "/work/exhibitions-events/stss-1.webp",
+        alt: "Global STSS launch event space",
+        width: 1800,
+        height: 1200,
+      },
+      {
+        src: "/work/exhibitions-events/stss-2.webp",
+        alt: "Global STSS launch event detail",
+        width: 1800,
+        height: 1200,
+      },
+      {
+        src: "/work/exhibitions-events/stss-3.webp",
+        alt: "Global STSS launch event branding",
+        width: 1800,
+        height: 1200,
+      },
+    ],
+    sections: [
+      {
+        heading: "Context",
+        body: "Event identities for Fameline Holding Group launches and industry exhibitions — carried from the first invitation through to the physical space visitors walk into.",
+      },
+      {
+        heading: "Approach",
+        body: "I design the on-site environment as a whole: backdrops, booth graphics, branded plinths, and signage, so the space reflects the group's identity and its family of brands consistently — whether it's a product launch or an international trade exhibition.",
+      },
+    ],
   },
 ];
 

@@ -26,7 +26,7 @@ export default function Contact() {
               Contact
             </p>
             <h2 className="gradient-text font-display text-4xl font-normal tracking-tight sm:text-5xl md:text-6xl">
-              Let&rsquo;s create something meaningful
+              Get in touch
             </h2>
           </Reveal>
 
