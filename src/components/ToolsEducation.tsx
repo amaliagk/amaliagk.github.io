@@ -36,9 +36,16 @@ export default function ToolsEducation() {
             </div>
             <div>
               <h3 className="text-sm font-medium text-text">Certifications</h3>
-              <ul className="mt-2 space-y-1 text-text-muted">
+              <ul className="mt-2 space-y-1.5 text-text-muted">
                 {certifications.map((c) => (
-                  <li key={c}>{c}</li>
+                  <li key={c.name}>
+                    {c.name}
+                    {c.tag && (
+                      <span className="ml-2 inline-block rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 align-middle text-[11px] font-medium uppercase tracking-wider text-primary-strong">
+                        {c.tag}
+                      </span>
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>
