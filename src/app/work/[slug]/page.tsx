@@ -6,9 +6,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import {
-  caseStudies,
+  publishedCaseStudies,
   getCaseStudy,
   type CaseStudyImage,
+  type CaseStudyVideo,
 } from "@/lib/case-studies";
 
 function GalleryFigure({ img }: { img: CaseStudyImage }) {
@@ -79,10 +80,55 @@ function Collage({ images }: { images: CaseStudyImage[] }) {
   );
 }
 
+function VideoFigure({ video }: { video: CaseStudyVideo }) {
+  return (
+    <figure className="mb-6 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-black/5">
+      <video
+        controls
+        preload="metadata"
+        playsInline
+        poster={video.poster}
+        className="w-full"
+        style={{ aspectRatio: `${video.width} / ${video.height}` }}
+      >
+        <source src={video.src} type="video/mp4" />
+      </video>
+      <figcaption className="p-4 text-sm text-text-muted">
+        {video.title}
+      </figcaption>
+    </figure>
+  );
+}
+
+function SectionVideos({ videos }: { videos: CaseStudyVideo[] }) {
+  if (videos.length === 1) {
+    const video = videos[0];
+    // Single video: constrain by orientation instead of stretching full width.
+    const maxWidth =
+      video.width > video.height
+        ? "sm:max-w-2xl"
+        : video.width === video.height
+          ? "sm:max-w-md"
+          : "sm:max-w-sm";
+    return (
+      <div className={`mt-8 ${maxWidth}`}>
+        <VideoFigure video={video} />
+      </div>
+    );
+  }
+  return (
+    <div className="mt-8 gap-6 [column-fill:_balance] sm:columns-2">
+      {videos.map((video) => (
+        <VideoFigure key={video.src} video={video} />
+      ))}
+    </div>
+  );
+}
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return caseStudies.map((c) => ({ slug: c.slug }));
+  return publishedCaseStudies.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata(
@@ -103,9 +149,12 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
   const study = getCaseStudy(slug);
   if (!study) notFound();
 
-  const index = caseStudies.findIndex((c) => c.slug === study.slug);
-  const prev = caseStudies[(index - 1 + caseStudies.length) % caseStudies.length];
-  const next = caseStudies[(index + 1) % caseStudies.length];
+  const index = publishedCaseStudies.findIndex((c) => c.slug === study.slug);
+  const prev =
+    publishedCaseStudies[
+      (index - 1 + publishedCaseStudies.length) % publishedCaseStudies.length
+    ];
+  const next = publishedCaseStudies[(index + 1) % publishedCaseStudies.length];
 
   return (
     <div className="flex flex-1 flex-col">
@@ -191,41 +240,12 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                       </div>
                     )
                   )}
+                  {section.videos && section.videos.length > 0 && (
+                    <SectionVideos videos={section.videos} />
+                  )}
                 </section>
               </Reveal>
             ))}
-
-            {study.videos && study.videos.length > 0 && (
-              <Reveal className="mt-16">
-                <section>
-                  <h2 className="font-display text-2xl font-normal tracking-tight text-text sm:text-3xl">
-                    Motion &amp; video
-                  </h2>
-                  <div className="mt-8 gap-6 [column-fill:_balance] sm:columns-2">
-                    {study.videos.map((video) => (
-                      <figure
-                        key={video.src}
-                        className="mb-6 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-black/5"
-                      >
-                        <video
-                          controls
-                          preload="metadata"
-                          playsInline
-                          poster={video.poster}
-                          className="w-full"
-                          style={{ aspectRatio: `${video.width} / ${video.height}` }}
-                        >
-                          <source src={video.src} type="video/mp4" />
-                        </video>
-                        <figcaption className="p-4 text-sm text-text-muted">
-                          {video.title}
-                        </figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                </section>
-              </Reveal>
-            )}
 
             {study.gallery.length > 0 && (
               <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">

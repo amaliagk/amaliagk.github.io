@@ -9,17 +9,6 @@ export type CaseStudyImage = {
   contain?: boolean;
 };
 
-export type CaseStudySection = {
-  heading?: string;
-  body: string;
-  images?: CaseStudyImage[];
-  /** Render images as a compact mosaic collage (first tile featured) rather
-   *  than the default 2-column grid. */
-  collage?: boolean;
-  /** Show a compact "coming soon" placeholder instead of images (empty event). */
-  comingSoon?: boolean;
-};
-
 export type CaseStudyVideo = {
   src: string;
   poster: string;
@@ -27,6 +16,19 @@ export type CaseStudyVideo = {
   width: number;
   height: number;
   title: string;
+};
+
+export type CaseStudySection = {
+  heading?: string;
+  body: string;
+  images?: CaseStudyImage[];
+  /** Render images as a compact mosaic collage (first tile featured) rather
+   *  than the default 2-column grid. */
+  collage?: boolean;
+  /** Videos belonging to this chapter (rendered after any images). */
+  videos?: CaseStudyVideo[];
+  /** Show a compact "coming soon" placeholder instead of images (empty event). */
+  comingSoon?: boolean;
 };
 
 export type CaseStudy = {
@@ -40,69 +42,87 @@ export type CaseStudy = {
    *  null until real work assets land in public/work/<slug>/. */
   cover: CaseStudyImage | null;
   gallery: CaseStudyImage[];
-  videos?: CaseStudyVideo[];
-  /** Copy structure per design.md: Context -> Approach -> Outcome */
+  /** Copy structure per design.md: Context -> narrative chapters -> Outcome */
   sections: CaseStudySection[];
+  /** Project announced but assets not yet delivered: home grid renders a
+   *  non-clickable teaser card; the page is excluded from build + sitemap. */
+  comingSoon?: boolean;
 };
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "corporate-branding",
-    title: "Corporate Branding & Visual Identity",
+    slug: "fameline-holding-group",
+    title: "Fameline Holding Group",
     subtitle:
-      "Building coherent brand systems for a group of maritime and logistics companies — from logo development to stationery and applications.",
+      "Day-to-day creative direction for a maritime holding group — one rebrand, a family of brand identities, and the campaigns, social content, and motion that carry them.",
     client: "Fameline Holding Group",
+    year: "2024–Present",
     tags: [
-      "Logo development",
-      "Brand systems",
-      "Corporate stationery",
-      "Applications",
+      "Creative direction",
+      "Rebranding",
+      "Multi-brand systems",
+      "Social & campaigns",
+      "Video & motion",
     ],
     cover: {
-      src: "/work/corporate-branding/cover.webp",
+      src: "/work/fameline-holding-group/cover.webp",
       alt: "Fameline Holding Group business cards in navy with an embossed monogram",
       width: 1800,
       height: 1272,
     },
+    gallery: [],
     sections: [
       {
         heading: "Context",
-        body: "The Fameline Holding Group spans a portfolio of maritime and logistics brands. Each company needs an identity distinct enough to stand on its own, yet clearly part of one family. The work runs from logo development through to the stationery and applications that carry a brand day to day.",
+        body: "The Fameline Holding Group spans a portfolio of maritime and logistics companies, and I run its creative in-house — identity systems, print, social campaigns, video, and event graphics. Each company needs an identity distinct enough to stand on its own, yet clearly part of one family, and every piece has to ship at the pace of a working marketing calendar.",
       },
       {
-        heading: "Logo development",
-        body: "I developed and refined logo systems across several of the group's companies, keeping a shared logic in how each mark, wordmark, and colour palette behaves.",
+        heading: "Rebrand & creative direction",
+        body: "I led the creative direction of the group's rebrand — evolving the identity while keeping the equity of the established mark, then rolling it out across stationery, presentations, and digital channels. The announcement itself became a motion piece for the group's social audience.",
+        videos: [
+          {
+            src: "/work/fameline-holding-group/video/rebranding.mp4",
+            poster: "/work/fameline-holding-group/video/rebranding.webp",
+            width: 1280,
+            height: 1280,
+            title: "Rebranding announcement",
+          },
+        ],
+      },
+      {
+        heading: "The brand family",
+        body: "I developed and refined logo systems across the group's companies — each mark distinct enough to stand alone, with a shared logic in construction, colour, and typography that holds the family together.",
         images: [
           {
-            src: "/work/corporate-branding/logo-tideway.webp",
+            src: "/work/fameline-holding-group/logo-tideway.webp",
             alt: "Tideway Cargo Logistics logo",
             width: 1000,
             height: 387,
             contain: true,
           },
           {
-            src: "/work/corporate-branding/logo-unichem.webp",
+            src: "/work/fameline-holding-group/logo-unichem.webp",
             alt: "Unichem logo, horizontal lockup",
             width: 1000,
             height: 411,
             contain: true,
           },
           {
-            src: "/work/corporate-branding/logo-zenglobal.webp",
+            src: "/work/fameline-holding-group/logo-zenglobal.webp",
             alt: "ZenGlobal Cargo Logistics logo",
             width: 1000,
             height: 562,
             contain: true,
           },
           {
-            src: "/work/corporate-branding/logo-shipwell.webp",
+            src: "/work/fameline-holding-group/logo-shipwell.webp",
             alt: "ShipWell logo",
             width: 1000,
             height: 1000,
             contain: true,
           },
           {
-            src: "/work/corporate-branding/logo-zoomline.webp",
+            src: "/work/fameline-holding-group/logo-zoomline.webp",
             alt: "Zoomline logo",
             width: 1000,
             height: 1000,
@@ -115,150 +135,87 @@ export const caseStudies: CaseStudy[] = [
         body: "The identities extend into the everyday touchpoints — business cards, letterheads, and print collateral — with typography, colour, and logo placement kept consistent so every piece reads as one brand.",
         images: [
           {
-            src: "/work/corporate-branding/letterhead.webp",
+            src: "/work/fameline-holding-group/letterhead.webp",
             alt: "Corporate letterhead layout",
             width: 1500,
             height: 1000,
           },
         ],
       },
-    ],
-    gallery: [
       {
-        src: "/work/corporate-branding/gstss-brochure-1.webp",
-        alt: "Luminar Marine stern tube seal system brochure, cover",
-        width: 1132,
-        height: 1600,
+        heading: "Social media & campaigns",
+        body: "An always-on social presence sets the group's public look and feel — international awareness days, seasonal greetings, and CSR initiatives like the “Be the reason Lofou turns green” tree-planting campaign. Each set starts from a single key visual and adapts across formats without losing consistency.",
+        collage: true,
+        images: [
+          {
+            src: "/work/fameline-holding-group/tree-planting.webp",
+            alt: "“Be the reason Lofou turns Green” tree-planting campaign invitation",
+            width: 1080,
+            height: 1080,
+          },
+          {
+            src: "/work/fameline-holding-group/breast-cancer.webp",
+            alt: "Breast Cancer Awareness event invitation",
+            width: 1080,
+            height: 1080,
+          },
+          {
+            src: "/work/fameline-holding-group/womens-day.webp",
+            alt: "International Women's Day social post",
+            width: 1080,
+            height: 1080,
+          },
+          {
+            src: "/work/fameline-holding-group/easter.webp",
+            alt: "Easter greeting social post",
+            width: 1080,
+            height: 1080,
+          },
+        ],
       },
       {
-        src: "/work/corporate-branding/gstss-brochure-2.webp",
-        alt: "Luminar Marine brochure, inside spread",
-        width: 1132,
-        height: 1600,
-      },
-      {
-        src: "/work/corporate-branding/gstss-brochure-3.webp",
-        alt: "Luminar Marine brochure, inside spread",
-        width: 1132,
-        height: 1600,
+        heading: "Video & motion",
+        body: "Short motion pieces built for social feeds — the group's global presence, key statistics, and team features — designed to hold attention with or without sound.",
+        videos: [
+          {
+            src: "/work/fameline-holding-group/video/global-presence.mp4",
+            poster: "/work/fameline-holding-group/video/global-presence.webp",
+            width: 720,
+            height: 1280,
+            title: "Global presence",
+          },
+          {
+            src: "/work/fameline-holding-group/video/fhg-statistics.mp4",
+            poster: "/work/fameline-holding-group/video/fhg-statistics.webp",
+            width: 720,
+            height: 1280,
+            title: "Group statistics",
+          },
+          {
+            src: "/work/fameline-holding-group/video/meet-the-team.mp4",
+            poster: "/work/fameline-holding-group/video/meet-the-team.webp",
+            width: 720,
+            height: 1280,
+            title: "Meet the team",
+          },
+        ],
       },
     ],
   },
   {
-    slug: "corporate-presentations",
-    title: "Corporate Presentations",
-    subtitle: "Turning complex information into clear corporate stories.",
-    tags: [
-      "Cover slides",
-      "Infographics",
-      "Data visualisation",
-      "Service diagrams",
-      "Presentation templates",
-    ],
-    cover: null,
-    gallery: [],
-    sections: [],
-  },
-  {
-    slug: "digital-campaigns",
-    title: "Digital Campaigns & Social Media",
+    slug: "global-stss",
+    title: "Global STSS Holding Group",
     subtitle:
-      "Campaign key visuals adapted across every digital touchpoint — from CSR initiatives to awareness days.",
-    client: "Fameline Holding Group",
+      "Turning complex information into clear corporate stories — a launch event, technical print, and motion for a marine-engineering group.",
+    client: "Global STSS Holding Group",
     tags: [
-      "Campaign key visual",
-      "Social formats",
-      "Motion & video",
-      "Awareness campaigns",
+      "Launch event",
+      "Brochure design",
+      "Corporate storytelling",
+      "Motion",
     ],
     cover: {
-      src: "/work/digital-campaigns/cover.webp",
-      alt: "“Be the reason Lofou turns Green” tree-planting campaign invitation",
-      width: 1080,
-      height: 1080,
-    },
-    gallery: [
-      {
-        src: "/work/digital-campaigns/breast-cancer.webp",
-        alt: "Breast Cancer Awareness event invitation",
-        width: 1080,
-        height: 1080,
-      },
-      {
-        src: "/work/digital-campaigns/womens-day.webp",
-        alt: "International Women's Day social post",
-        width: 1080,
-        height: 1080,
-      },
-      {
-        src: "/work/digital-campaigns/easter.webp",
-        alt: "Easter greeting social post",
-        width: 1080,
-        height: 1080,
-      },
-    ],
-    videos: [
-      {
-        src: "/work/digital-campaigns/video/rebranding.mp4",
-        poster: "/work/digital-campaigns/video/rebranding.webp",
-        width: 1280,
-        height: 1280,
-        title: "Rebranding announcement",
-      },
-      {
-        src: "/work/digital-campaigns/video/gstss-announcement.mp4",
-        poster: "/work/digital-campaigns/video/gstss-announcement.webp",
-        width: 1280,
-        height: 720,
-        title: "Global STSS website announcement",
-      },
-      {
-        src: "/work/digital-campaigns/video/global-presence.mp4",
-        poster: "/work/digital-campaigns/video/global-presence.webp",
-        width: 720,
-        height: 1280,
-        title: "Global presence",
-      },
-      {
-        src: "/work/digital-campaigns/video/fhg-statistics.mp4",
-        poster: "/work/digital-campaigns/video/fhg-statistics.webp",
-        width: 720,
-        height: 1280,
-        title: "Group statistics",
-      },
-      {
-        src: "/work/digital-campaigns/video/meet-the-team.mp4",
-        poster: "/work/digital-campaigns/video/meet-the-team.webp",
-        width: 720,
-        height: 1280,
-        title: "Meet the team",
-      },
-    ],
-    sections: [
-      {
-        heading: "Context",
-        body: "Corporate social responsibility and awareness campaigns for the Fameline Holding Group — environmental initiatives, awareness days, and seasonal greetings — each needing a key visual that holds up across social formats and digital invitations.",
-      },
-      {
-        heading: "Approach",
-        body: "I build each campaign around a single strong key visual, then adapt it for the formats it needs: square social posts, digital invitations, and internal announcements — plus motion pieces for launches and announcements — keeping messaging, colour, and layout consistent across the set.",
-      },
-    ],
-  },
-  {
-    slug: "exhibitions-events",
-    title: "Exhibitions & Events",
-    subtitle:
-      "Event identities carried from invitation through to on-site booth graphics, backdrops, and branded environments.",
-    client: "Fameline Holding Group",
-    tags: [
-      "Exhibition booth graphics",
-      "Event identity",
-      "Backdrops & signage",
-      "Branded environments",
-    ],
-    cover: {
-      src: "/work/exhibitions-events/cover.webp",
+      src: "/work/global-stss/cover.webp",
       alt: "Global STSS launch event backdrop wall with the group's family of brand logos",
       width: 1600,
       height: 1067,
@@ -266,42 +223,117 @@ export const caseStudies: CaseStudy[] = [
     gallery: [],
     sections: [
       {
-        heading: "Global STSS — Launch",
-        body: "A launch event built as one branded environment for the group's family of brands — from the backdrop wall through to plinths and signage.",
+        heading: "Context",
+        body: "Global STSS brings stern tube seal system specialists together under one holding group. The brief behind every deliverable is the same: dense, technical subject matter that has to read clearly and look confident — to partners, clients, and event audiences.",
+      },
+      {
+        heading: "Launch event",
+        body: "The group's launch was built as one branded environment — from the backdrop wall carrying the family of brand logos through to plinths, signage, and staging.",
         collage: true,
         images: [
-          { src: "/work/exhibitions-events/stss-1.webp", alt: "Global STSS launch, event space", width: 1600, height: 1067 },
-          { src: "/work/exhibitions-events/stss-2.webp", alt: "Global STSS launch, branded detail", width: 1600, height: 1067 },
-          { src: "/work/exhibitions-events/stss-3.webp", alt: "Global STSS launch, guests", width: 1600, height: 1066 },
-          { src: "/work/exhibitions-events/stss-4.webp", alt: "Global STSS launch, staging", width: 1600, height: 1066 },
-          { src: "/work/exhibitions-events/stss-5.webp", alt: "Global STSS launch, branded elements", width: 1600, height: 1067 },
+          { src: "/work/global-stss/launch-1.webp", alt: "Global STSS launch, event space", width: 1600, height: 1067 },
+          { src: "/work/global-stss/launch-2.webp", alt: "Global STSS launch, branded detail", width: 1600, height: 1067 },
+          { src: "/work/global-stss/launch-3.webp", alt: "Global STSS launch, guests", width: 1600, height: 1066 },
+          { src: "/work/global-stss/launch-4.webp", alt: "Global STSS launch, staging", width: 1600, height: 1066 },
+          { src: "/work/global-stss/launch-5.webp", alt: "Global STSS launch, branded elements", width: 1600, height: 1067 },
         ],
       },
       {
-        heading: "EastMed Exhibition",
-        body: "Exhibition stands for the group's brands at EastMed — including the Elite Blue Group booth with its living green wall and product display.",
-        collage: true,
+        heading: "Print — Luminar Marine brochure",
+        body: "A product brochure for Luminar Marine's stern tube seal system: specification-heavy content structured into clean spreads, with hierarchy and diagrams doing the heavy lifting.",
         images: [
-          { src: "/work/exhibitions-events/eastmed-1.webp", alt: "Elite Blue Group booth with a living green wall and product display", width: 1600, height: 1067 },
-          { src: "/work/exhibitions-events/eastmed-2.webp", alt: "Elite Blue Group booth, further view", width: 1600, height: 1066 },
-          { src: "/work/exhibitions-events/eastmed-3.webp", alt: "Exhibition stand detail", width: 1600, height: 1066 },
-          { src: "/work/exhibitions-events/eastmed-4.webp", alt: "Exhibition stand branding", width: 1600, height: 1067 },
-          { src: "/work/exhibitions-events/eastmed-5.webp", alt: "Exhibition stand, product shelf", width: 1066, height: 1600 },
-          { src: "/work/exhibitions-events/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
-          { src: "/work/exhibitions-events/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
+          {
+            src: "/work/global-stss/brochure-1.webp",
+            alt: "Luminar Marine stern tube seal system brochure, cover",
+            width: 1132,
+            height: 1600,
+          },
+          {
+            src: "/work/global-stss/brochure-2.webp",
+            alt: "Luminar Marine brochure, inside spread",
+            width: 1132,
+            height: 1600,
+          },
+          {
+            src: "/work/global-stss/brochure-3.webp",
+            alt: "Luminar Marine brochure, inside spread",
+            width: 1132,
+            height: 1600,
+          },
         ],
       },
       {
-        heading: "Sailing Regatta",
-        body: "Event identity and on-site branding for the group's sailing regatta.",
-        collage: true,
-        comingSoon: true,
-        images: [],
+        heading: "Motion",
+        body: "The group's website launch, announced with a short motion piece for its social channels.",
+        videos: [
+          {
+            src: "/work/global-stss/video/announcement.mp4",
+            poster: "/work/global-stss/video/announcement.webp",
+            width: 1280,
+            height: 720,
+            title: "Global STSS website announcement",
+          },
+        ],
       },
     ],
   },
+  {
+    slug: "eastmed-exhibition",
+    title: "EastMed Exhibition",
+    subtitle:
+      "Exhibition stands for the group's brands at the EastMed exhibition — stand graphics, signage, and branded environments.",
+    client: "Fameline Holding Group",
+    tags: [
+      "Exhibition stands",
+      "Booth graphics",
+      "Signage",
+      "Branded environments",
+    ],
+    cover: {
+      src: "/work/eastmed-exhibition/eastmed-1.webp",
+      alt: "Elite Blue Group booth with a living green wall and product display",
+      width: 1600,
+      height: 1067,
+    },
+    gallery: [],
+    sections: [
+      {
+        heading: "Context",
+        body: "An exhibition presence for the group's brands at EastMed — taking each identity off the page and into a physical stand that has to work at a distance, in a crowded hall, and up close.",
+      },
+      {
+        heading: "On the floor",
+        body: "Highlights from the exhibition floor, including the Elite Blue Group booth with its living green wall and product display.",
+        collage: true,
+        images: [
+          { src: "/work/eastmed-exhibition/eastmed-2.webp", alt: "Elite Blue Group booth, further view", width: 1600, height: 1066 },
+          { src: "/work/eastmed-exhibition/eastmed-3.webp", alt: "Exhibition stand detail", width: 1600, height: 1066 },
+          { src: "/work/eastmed-exhibition/eastmed-4.webp", alt: "Exhibition stand branding", width: 1600, height: 1067 },
+          { src: "/work/eastmed-exhibition/eastmed-5.webp", alt: "Exhibition stand, product shelf", width: 1066, height: 1600 },
+          { src: "/work/eastmed-exhibition/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
+          { src: "/work/eastmed-exhibition/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "sailing-regatta",
+    title: "Fameline Offshore Sailing Regatta",
+    subtitle:
+      "Logo development and event identity for the group's offshore sailing regatta.",
+    client: "Fameline Holding Group",
+    year: "2024",
+    tags: ["Logo development", "Event identity", "On-site branding"],
+    cover: null,
+    gallery: [],
+    sections: [],
+    comingSoon: true,
+  },
 ];
 
+/** Projects with real content — the only ones that get pages, links, and sitemap entries. */
+export const publishedCaseStudies = caseStudies.filter((c) => !c.comingSoon);
+
 export function getCaseStudy(slug: string): CaseStudy | undefined {
-  return caseStudies.find((c) => c.slug === slug);
+  return publishedCaseStudies.find((c) => c.slug === slug);
 }
