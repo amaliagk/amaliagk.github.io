@@ -8,8 +8,11 @@
 ## Purpose & audience
 
 - **Goal:** get Amalia Gkigkolian hired as an in-house designer / marketing creative.
-- **Primary audience: tech companies.** iGaming and FinTech are secondary — the design
-  flexes around a tech-credible baseline, not the reverse. All three sectors hire
+- **Primary audience: iGaming companies** (updated 2026-07-17, Amalia's explicit call).
+  Tech and FinTech are secondary — copy targets iGaming **by emphasis, not by name**
+  (multi-brand portfolios, campaign velocity, promo/social production, events/expos,
+  video & motion, AI fluency). The sector is never named on the site; sector-explicit
+  targeting happens per-application in CV/cover letters. All three sectors hire
   in-house creatives in Limassol, Cyprus (her location).
 - She is **actively job hunting** — bias toward shipping over polishing.
 - **Primary CTA: "View Selected Work."** CV download and contact are secondary actions.
@@ -20,10 +23,12 @@
 
 | Decision | Answer |
 |---|---|
-| Primary audience | Tech first; iGaming/FinTech flex around it |
-| Visual direction | Holographic/glassmorphism identity at full intensity (user's explicit call — bolder than typical tech restraint, kept deliberately) |
+| Primary audience | **iGaming first**; tech/FinTech flex around it (updated 2026-07-17) |
+| Copy targeting | iGaming by **emphasis, not naming** — multi-brand, velocity, promo/social, events, motion, AI; the sector is never named on-site |
+| Visual direction | Holographic/glassmorphism identity at full intensity (user's explicit call — bolder than typical tech restraint, kept deliberately). Vivid palette reconfirmed 2026-07-17 (the soft pastels in `Portfolio Structure v2.docx` are stale) |
 | Inspiration | `References/hol1.jpeg` + `hol2.jpeg` for pearlescent *blend quality* only; palette stays blue/purple/cyan (no mint/coral expansion) |
-| Structure | Single long-scroll home + dedicated case-study page per work category (`/work/<slug>`) |
+| Structure | Single long-scroll home + **project-led** case-study pages (`/work/<slug>`, one per client/event — updated 2026-07-17 from category-led, per `Portfolio Structure v2.docx`) |
+| Project list | 1) Fameline Holding Group (flagship, narrative chapters) 2) Global STSS Holding Group 3) EastMed Exhibition 4) Sailing Regatta (teaser card until assets land) |
 | Hosting | Vercel free tier, `.vercel.app` subdomain for v1; custom domain later |
 | Version control | git + GitHub (user's account) + Vercel auto-deploy |
 | Ship gate | 2+ work categories populated with real work AND `public/cv.pdf` present |
@@ -81,12 +86,15 @@ appear only at display sizes (≥3:1 large-text contrast).
 - **Hero:** two columns — left: name (gradient serif), role badge, rotating
   "Specialized in …", description, CTAs; right: What-I-Do tag cloud. Animated glow
   blobs behind.
-- **Case studies:** each of the 4 categories is a page at `/work/<slug>`
-  (slugs: `corporate-branding`, `corporate-presentations`, `digital-campaigns`,
-  `exhibitions-events`). Data in `src/lib/case-studies.ts`; images in
+- **Case studies:** each of the 4 **projects** is a page at `/work/<slug>`
+  (slugs: `fameline-holding-group`, `global-stss`, `eastmed-exhibition`,
+  `sailing-regatta` — the last is `comingSoon` and rendered only as a non-clickable
+  teaser card until assets land). Data in `src/lib/case-studies.ts`; images in
   `public/work/<slug>/` (web-optimized: ≤2000px, JPEG q~80, <400KB — raw sources
-  stay in git-ignored `Designs/`). Copy structure per study: **Context → Approach →
-  Outcome** (evidences the strategic-designer story).
+  stay in git-ignored `Designs/`). Copy structure per study: **Context → narrative
+  chapters → Outcome** (evidences the strategic-designer story). The Fameline page
+  is the flagship: Context → Rebrand & creative direction (before/after pending)
+  → Brand family → Applications → Social collage → Video & motion.
 - Nav uses `/#anchor` links (works from subpages); `data-scroll-behavior="smooth"`
   on `<html>` (Next 16 requirement).
 
