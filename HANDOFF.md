@@ -110,6 +110,8 @@ Tooling is installed `--no-save` (reinstall if missing): `sharp` (ships with Nex
 
 ## Recent commits
 ```
+cc0a108 Vibrant pearlescent hero + editorial Selected Work index
+9096d0e Refresh HANDOFF commit log after project-led restructure
 a860d0e Ignore Word autosave temp files
 1e988b3 Reposition copy: multi-brand emphasis and AI fluency
 bb99d4e Restructure Selected Work into four project case studies
