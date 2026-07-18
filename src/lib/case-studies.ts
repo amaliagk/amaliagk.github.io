@@ -25,9 +25,20 @@ export type CaseStudyBeforeAfter = {
   slider?: boolean;
 };
 
+export type CaseStudyYouTube = { id: string; title: string };
+
 export type CaseStudySection = {
   heading?: string;
+  /** Supports multiple paragraphs, split on a blank line. May be empty. */
   body: string;
+  /** Bulleted list rendered after the body. */
+  bullets?: string[];
+  /** Further paragraphs rendered after the bullets. */
+  bodyAfter?: string;
+  /** Lazy-loaded YouTube embed (facade until played). */
+  youtube?: CaseStudyYouTube;
+  /** Overrides the "Part NN" eyebrow on a `part` section (e.g. "2024 · Role"). */
+  eyebrow?: string;
   images?: CaseStudyImage[];
   /** Render images as a compact mosaic collage (first tile featured) rather
    *  than the default 2-column grid. */
@@ -330,56 +341,82 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "eastmed-exhibition",
-    title: "EastMed Exhibition",
+    slug: "events-exhibitions",
+    title: "Events & Exhibitions",
     subtitle:
-      "Exhibition stands for the group's brands at the EastMed exhibition — stand graphics, signage, and branded environments.",
+      "Event coordination, communication strategy and production — from an offshore sailing regatta to an international marine exhibition.",
     client: "Fameline Holding Group",
     tags: [
-      "Exhibition stands",
-      "Booth graphics",
-      "Signage",
-      "Branded environments",
+      "Event coordination",
+      "Communication strategy",
+      "Event production",
+      "Booth & signage",
     ],
     cover: {
-      src: "/work/eastmed-exhibition/eastmed-1.webp",
-      alt: "Elite Blue Group booth with a living green wall and product display",
+      src: "/work/events-exhibitions/eastmed-1.webp",
+      alt: "Elite Blue Group booth at the East Med Marine and Offshore Exhibition",
       width: 1600,
       height: 1067,
     },
+    hideHeroImage: true,
     gallery: [],
     sections: [
       {
-        heading: "Context",
-        body: "An exhibition presence for the group's brands at EastMed — taking each identity off the page and into a physical stand that has to work at a distance, in a crowded hall, and up close.",
+        part: true,
+        heading: "Fameline Offshore Sailing Regatta",
+        eyebrow: "2024 · Event Coordination · Communication Strategy",
+        body: "",
+        youtube: { id: "kFWmGjErnyQ", title: "Fameline Offshore Sailing Regatta 2024" },
       },
       {
-        heading: "On the floor",
-        body: "Highlights from the exhibition floor, including the Elite Blue Group booth with its living green wall and product display.",
+        heading: "The Event",
+        body: "Organised by Fameline Holding Group, the Regatta combines sailing, networking, teamwork and social impact in one dynamic experience.\n\nThe day includes the race, professional recognition, corporate social responsibility, team building activities and an evening celebration.",
+      },
+      {
+        heading: "My Role",
+        body: "I coordinated the event day across the race, awards ceremony and party to ensure everything ran smoothly.\n\nI also developed the communication plan, including:",
+        bullets: [
+          "Internal invitations, updates and reminders",
+          "Sponsorship packages and partner communication",
+          "Event branding and sponsor visibility",
+          "Post-event social media and email campaigns",
+        ],
+      },
+      {
+        part: true,
+        heading: "East Med Marine and Offshore Exhibition",
+        eyebrow: "2025 · Communication Strategy · Event Production",
+        body: "",
+        youtube: { id: "JkoQHBH7hTU", title: "East Med Marine and Offshore Exhibition 2025" },
+      },
+      {
+        heading: "The Event",
+        body: "Held in Limassol, Cyprus, the exhibition brings together more than 80 international exhibitors from the marine and offshore sectors.\n\nThe three-day programme combines a large-scale exhibition with two days of conferences focused on Maritime industry developments and technological advancements.",
+      },
+      {
+        heading: "My Role",
+        body: "I developed and executed the communication plan to attract the right audience through:",
+        bullets: [
+          "Social media and email campaigns",
+          "Exhibitor promotion",
+          "Targeted invitations for partners and clients",
+          "Maritime publication advertising",
+          "Google Ads",
+        ],
+        bodyAfter:
+          "I also created booth graphics, signage, badge templates, floor plans, catalogues and supporting print materials.\n\nDuring the event, I provided on-site coordination and worked with the construction company to ensure correct booth assembly and accurate design implementation.",
         collage: true,
         images: [
-          { src: "/work/eastmed-exhibition/eastmed-2.webp", alt: "Elite Blue Group booth, further view", width: 1600, height: 1066 },
-          { src: "/work/eastmed-exhibition/eastmed-3.webp", alt: "Exhibition stand detail", width: 1600, height: 1066 },
-          { src: "/work/eastmed-exhibition/eastmed-4.webp", alt: "Exhibition stand branding", width: 1600, height: 1067 },
-          { src: "/work/eastmed-exhibition/eastmed-5.webp", alt: "Exhibition stand, product shelf", width: 1066, height: 1600 },
-          { src: "/work/eastmed-exhibition/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
-          { src: "/work/eastmed-exhibition/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
+          { src: "/work/events-exhibitions/eastmed-1.webp", alt: "Elite Blue Group booth with a living green wall and product display", width: 1600, height: 1067 },
+          { src: "/work/events-exhibitions/eastmed-2.webp", alt: "Elite Blue Group booth, further view", width: 1600, height: 1066 },
+          { src: "/work/events-exhibitions/eastmed-3.webp", alt: "Exhibition stand detail", width: 1600, height: 1066 },
+          { src: "/work/events-exhibitions/eastmed-4.webp", alt: "Exhibition stand branding", width: 1600, height: 1067 },
+          { src: "/work/events-exhibitions/eastmed-5.webp", alt: "Exhibition stand, product shelf", width: 1066, height: 1600 },
+          { src: "/work/events-exhibitions/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
+          { src: "/work/events-exhibitions/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
         ],
       },
     ],
-  },
-  {
-    slug: "sailing-regatta",
-    title: "Fameline Offshore Sailing Regatta",
-    subtitle:
-      "Logo development and event identity for the group's offshore sailing regatta.",
-    client: "Fameline Holding Group",
-    year: "2024",
-    tags: ["Logo development", "Event identity", "On-site branding"],
-    cover: null,
-    gallery: [],
-    sections: [],
-    comingSoon: true,
   },
 ];
 

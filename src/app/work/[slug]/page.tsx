@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import {
   publishedCaseStudies,
   getCaseStudy,
@@ -13,6 +14,21 @@ import {
   type CaseStudyVideo,
   type CaseStudyBeforeAfter,
 } from "@/lib/case-studies";
+
+/** Render a string as one or more paragraphs, split on blank lines. */
+function Paragraphs({ text, className = "" }: { text: string; className?: string }) {
+  const paras = text.split(/\n\n+/).filter(Boolean);
+  if (paras.length === 0) return null;
+  return (
+    <>
+      {paras.map((para, i) => (
+        <p key={i} className={`max-w-2xl leading-relaxed text-text-muted ${className} ${i > 0 ? "mt-4" : ""}`}>
+          {para}
+        </p>
+      ))}
+    </>
+  );
+}
 
 function GalleryFigure({ img }: { img: CaseStudyImage }) {
   if (img.contain) {
@@ -272,7 +288,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                     {section.part ? (
                       <div className="border-t border-border pt-10">
                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
-                          Part {String(partNo).padStart(2, "0")}
+                          {section.eyebrow ?? `Part ${String(partNo).padStart(2, "0")}`}
                         </p>
                         <h2 className="gradient-text font-display mt-2 text-4xl font-normal tracking-tight sm:text-5xl">
                           {section.heading}
@@ -285,9 +301,21 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                         </h3>
                       )
                     )}
-                    <p className="mt-4 max-w-2xl leading-relaxed text-text-muted">
-                      {section.body}
-                    </p>
+                    {section.body && <Paragraphs text={section.body} className="mt-4" />}
+                    {section.bullets && section.bullets.length > 0 && (
+                      <ul className="mt-4 max-w-2xl space-y-2">
+                        {section.bullets.map((item) => (
+                          <li key={item} className="flex gap-3 leading-relaxed text-text-muted">
+                            <span className="mt-2.5 h-1.5 w-1.5 flex-none rounded-full bg-primary" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {section.bodyAfter && <Paragraphs text={section.bodyAfter} className="mt-4" />}
+                    {section.youtube && (
+                      <YouTubeEmbed id={section.youtube.id} title={section.youtube.title} />
+                    )}
                     {section.beforeAfter && <BeforeAfter data={section.beforeAfter} />}
                     {section.comingSoon ? (
                       <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
