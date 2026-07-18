@@ -110,7 +110,7 @@ export default function HeroBlobs() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(70% 62% at 38% 50%, color-mix(in srgb, var(--bg) 64%, transparent), transparent 74%)",
+            "radial-gradient(60% 66% at 24% 50%, color-mix(in srgb, var(--bg) 72%, transparent), transparent 72%)",
         }}
       />
     </div>

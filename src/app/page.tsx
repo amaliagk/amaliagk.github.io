@@ -14,10 +14,13 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <SectionDivider />
         <Introduction />
         <SectionDivider />
         <SelectedWork />
+        <SectionDivider />
         <Experience />
+        <SectionDivider />
         <ToolsEducation />
         <SectionDivider />
         <Contact />

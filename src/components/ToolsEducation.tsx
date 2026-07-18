@@ -6,7 +6,7 @@ export default function ToolsEducation() {
     <section className="bg-bg-elevated px-6 py-24 sm:px-10">
       <div className="mx-auto grid max-w-4xl grid-cols-1 gap-16 md:grid-cols-2">
         <Reveal>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
+          <h2 className="gradient-text font-display text-3xl font-normal tracking-tight sm:text-4xl">
             Tools
           </h2>
           <div className="mt-8 space-y-6">
@@ -20,7 +20,7 @@ export default function ToolsEducation() {
         </Reveal>
 
         <Reveal delay={100}>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
+          <h2 className="gradient-text font-display text-3xl font-normal tracking-tight sm:text-4xl">
             Education & Certifications
           </h2>
           <div className="mt-8 space-y-6">

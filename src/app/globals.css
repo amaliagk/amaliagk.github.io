@@ -145,12 +145,14 @@ body::before {
    wash on the calmer sections below. Blue/purple/cyan only, per design.md. */
 .hero-aurora {
   background:
-    radial-gradient(62% 72% at 8% 6%, color-mix(in srgb, var(--primary) 56%, transparent), transparent 72%),
-    radial-gradient(68% 78% at 94% 12%, color-mix(in srgb, var(--secondary) 62%, transparent), transparent 74%),
-    radial-gradient(62% 72% at 97% 58%, color-mix(in srgb, var(--cyan) 55%, transparent), transparent 70%),
-    radial-gradient(64% 74% at 76% 95%, color-mix(in srgb, var(--primary) 50%, transparent), transparent 72%),
-    radial-gradient(62% 72% at 14% 94%, color-mix(in srgb, var(--secondary) 48%, transparent), transparent 72%),
-    radial-gradient(56% 66% at 50% 48%, color-mix(in srgb, var(--cyan) 36%, transparent), transparent 68%);
+    /* Vibrant blooms weighted to the right — the holographic showcase side */
+    radial-gradient(66% 80% at 99% 10%, color-mix(in srgb, var(--secondary) 66%, transparent), transparent 72%),
+    radial-gradient(62% 74% at 100% 54%, color-mix(in srgb, var(--cyan) 60%, transparent), transparent 70%),
+    radial-gradient(64% 74% at 86% 96%, color-mix(in srgb, var(--primary) 56%, transparent), transparent 72%),
+    radial-gradient(52% 64% at 70% 60%, color-mix(in srgb, var(--secondary) 42%, transparent), transparent 68%),
+    /* Gentle tints on the left so the headline + body copy stay clear */
+    radial-gradient(56% 66% at 2% 14%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 62%),
+    radial-gradient(52% 62% at 6% 96%, color-mix(in srgb, var(--cyan) 24%, transparent), transparent 62%);
   background-size: 150% 150%;
   filter: saturate(1.45);
   animation: aurora-shift 22s ease-in-out infinite;

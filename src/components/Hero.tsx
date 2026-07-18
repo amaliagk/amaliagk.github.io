@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[92vh] items-center overflow-hidden px-6 pt-24 sm:px-10"
+      className="relative flex min-h-[92vh] items-center overflow-hidden px-6 pb-24 pt-32 sm:px-10"
     >
       <HeroBlobs />
 
