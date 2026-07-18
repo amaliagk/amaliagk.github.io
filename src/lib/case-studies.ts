@@ -18,6 +18,13 @@ export type CaseStudyVideo = {
   title: string;
 };
 
+export type CaseStudyBeforeAfter = {
+  before: CaseStudyImage;
+  after: CaseStudyImage;
+  /** true = interactive drag-to-compare wipe; false/undefined = labelled pair. */
+  slider?: boolean;
+};
+
 export type CaseStudySection = {
   heading?: string;
   body: string;
@@ -27,6 +34,11 @@ export type CaseStudySection = {
   collage?: boolean;
   /** Videos belonging to this chapter (rendered after any images). */
   videos?: CaseStudyVideo[];
+  /** Before/after comparison (rendered after the body, before images). */
+  beforeAfter?: CaseStudyBeforeAfter;
+  /** Top-level part heading (large gradient display + numbered eyebrow) vs a
+   *  normal sub-chapter heading. */
+  part?: boolean;
   /** Show a compact "coming soon" placeholder instead of images (empty event). */
   comingSoon?: boolean;
 };
@@ -41,6 +53,9 @@ export type CaseStudy = {
   /** Used for the home card thumbnail, the case-study hero, and the OG image.
    *  null until real work assets land in public/work/<slug>/. */
   cover: CaseStudyImage | null;
+  /** Skip the big cover image on the case-study page (typographic intro) while
+   *  still using `cover` for the home-grid thumbnail + OG image. */
+  hideHeroImage?: boolean;
   gallery: CaseStudyImage[];
   /** Copy structure per design.md: Context -> narrative chapters -> Outcome */
   sections: CaseStudySection[];
@@ -54,31 +69,128 @@ export const caseStudies: CaseStudy[] = [
     slug: "fameline-holding-group",
     title: "Fameline Holding Group",
     subtitle:
-      "Day-to-day creative direction for a maritime holding group — one rebrand, a family of brand identities, and the campaigns, social content, and motion that carry them.",
+      "Creative direction of the Group's rebranding — and the collateral that carried it into the world.",
     client: "Fameline Holding Group",
     year: "2024–Present",
     tags: [
       "Creative direction",
       "Rebranding",
-      "Multi-brand systems",
-      "Social & campaigns",
+      "Collateral & print",
+      "Digital campaigns",
       "Video & motion",
     ],
     cover: {
-      src: "/work/fameline-holding-group/cover.webp",
-      alt: "Fameline Holding Group business cards in navy with an embossed monogram",
-      width: 1800,
-      height: 1272,
+      src: "/work/fameline-holding-group/presentation-after.webp",
+      alt: "Fameline Holding Group rebranded presentation cover",
+      width: 1600,
+      height: 900,
     },
+    hideHeroImage: true,
     gallery: [],
     sections: [
       {
-        heading: "Context",
-        body: "The Fameline Holding Group spans a portfolio of maritime and logistics companies, and I run its creative in-house — identity systems, print, social campaigns, video, and event graphics. Each company needs an identity distinct enough to stand on its own, yet clearly part of one family, and every piece has to ship at the pace of a working marketing calendar.",
+        part: true,
+        heading: "Rebranding",
+        body: "The brief was to modernise the identity without losing what already made it recognisable. Maritime branding leans traditional — strict, minimal, corporate — so I directed a measured facelift: a lighter monogram, cleaner proportions, and the wordmark shifted from black to the brand navy — modern, but still within the industry's conventions.",
+        beforeAfter: {
+          before: {
+            src: "/work/fameline-holding-group/logo-before.webp",
+            alt: "Fameline Holding Group logo before the rebrand",
+            width: 1040,
+            height: 771,
+          },
+          after: {
+            src: "/work/fameline-holding-group/logo-after.webp",
+            alt: "Fameline Holding Group logo after the rebrand",
+            width: 1040,
+            height: 771,
+          },
+        },
       },
       {
-        heading: "Rebrand & creative direction",
-        body: "I led the creative direction of the group's rebrand — evolving the identity while keeping the equity of the established mark, then rolling it out across stationery, presentations, and digital channels. The announcement itself became a motion piece for the group's social audience.",
+        heading: "Presentation",
+        body: "The corporate presentation, rebuilt. I moved it from a dark, formal deck to a brighter, more open one, and restructured the content so the Group's scale and story read at a glance.",
+        beforeAfter: {
+          before: {
+            src: "/work/fameline-holding-group/presentation-before.webp",
+            alt: "Old Fameline presentation cover — dark and formal",
+            width: 1600,
+            height: 900,
+          },
+          after: {
+            src: "/work/fameline-holding-group/presentation-after.webp",
+            alt: "New Fameline presentation cover — brighter and more open",
+            width: 1600,
+            height: 900,
+          },
+        },
+        images: [
+          {
+            src: "/work/fameline-holding-group/deck-stats.webp",
+            alt: "New presentation slide — key figures: years, turnover, professionals, vessels served",
+            width: 1600,
+            height: 900,
+          },
+          {
+            src: "/work/fameline-holding-group/deck-locations.webp",
+            alt: "New presentation slide — global locations map",
+            width: 1600,
+            height: 900,
+          },
+          {
+            src: "/work/fameline-holding-group/deck-history.webp",
+            alt: "New presentation slide — company history timeline",
+            width: 1600,
+            height: 900,
+          },
+          {
+            src: "/work/fameline-holding-group/deck-vision.webp",
+            alt: "New presentation slide — vision diagram",
+            width: 1600,
+            height: 900,
+          },
+        ],
+      },
+      {
+        heading: "Stationery",
+        body: "A full stationery suite on the new identity — folder, letterhead, business cards, compliment slips, and envelopes.",
+        images: [
+          {
+            src: "/work/fameline-holding-group/stationery.webp",
+            alt: "Fameline stationery suite mockup — folder, letterhead, business cards, compliment slips, envelopes",
+            width: 1800,
+            height: 1350,
+          },
+        ],
+      },
+      {
+        heading: "Brand guidelines",
+        body: "A guidelines document to hold it all together — logo usage, colour, and typography, systematised for the whole Group.",
+        images: [
+          {
+            src: "/work/fameline-holding-group/guide-colours.webp",
+            alt: "Brand guidelines spread — colour palette",
+            width: 1600,
+            height: 1131,
+          },
+          {
+            src: "/work/fameline-holding-group/guide-type.webp",
+            alt: "Brand guidelines spread — typography",
+            width: 1600,
+            height: 1131,
+          },
+          {
+            src: "/work/fameline-holding-group/guide-icons.webp",
+            alt: "Brand guidelines spread — iconography",
+            width: 1600,
+            height: 1131,
+          },
+        ],
+      },
+      {
+        part: true,
+        heading: "Digital Campaigns",
+        body: "With the new identity in place, I built the Group's first real social presence — a campaign to introduce the rebrand and grow awareness. Until then, little had been shared about the company or its scale, so I led with facts and figures, introduced the people behind it, and used international awareness days and ESG initiatives to give audiences a reason to engage.",
         videos: [
           {
             src: "/work/fameline-holding-group/video/rebranding.mp4",
@@ -87,75 +199,36 @@ export const caseStudies: CaseStudy[] = [
             height: 1280,
             title: "Rebranding announcement",
           },
-        ],
-      },
-      {
-        heading: "The brand family",
-        body: "I developed and refined logo systems across the group's companies — each mark distinct enough to stand alone, with a shared logic in construction, colour, and typography that holds the family together.",
-        images: [
           {
-            src: "/work/fameline-holding-group/logo-tideway.webp",
-            alt: "Tideway Cargo Logistics logo",
-            width: 1000,
-            height: 387,
-            contain: true,
+            src: "/work/fameline-holding-group/video/statistics.mp4",
+            poster: "/work/fameline-holding-group/video/statistics.webp",
+            width: 720,
+            height: 1280,
+            title: "Group statistics",
           },
           {
-            src: "/work/fameline-holding-group/logo-unichem.webp",
-            alt: "Unichem logo, horizontal lockup",
-            width: 1000,
-            height: 411,
-            contain: true,
+            src: "/work/fameline-holding-group/video/global-presence.mp4",
+            poster: "/work/fameline-holding-group/video/global-presence.webp",
+            width: 720,
+            height: 1280,
+            title: "Global presence",
           },
           {
-            src: "/work/fameline-holding-group/logo-zenglobal.webp",
-            alt: "ZenGlobal Cargo Logistics logo",
-            width: 1000,
-            height: 562,
-            contain: true,
-          },
-          {
-            src: "/work/fameline-holding-group/logo-shipwell.webp",
-            alt: "ShipWell logo",
-            width: 1000,
-            height: 1000,
-            contain: true,
-          },
-          {
-            src: "/work/fameline-holding-group/logo-zoomline.webp",
-            alt: "Zoomline logo",
-            width: 1000,
-            height: 1000,
-            contain: true,
+            src: "/work/fameline-holding-group/video/meet-the-team.mp4",
+            poster: "/work/fameline-holding-group/video/meet-the-team.webp",
+            width: 720,
+            height: 1280,
+            title: "Meet the team",
           },
         ],
       },
       {
-        heading: "Applications",
-        body: "The identities extend into the everyday touchpoints — business cards, letterheads, and print collateral — with typography, colour, and logo placement kept consistent so every piece reads as one brand.",
-        images: [
-          {
-            src: "/work/fameline-holding-group/letterhead.webp",
-            alt: "Corporate letterhead layout",
-            width: 1500,
-            height: 1000,
-          },
-        ],
-      },
-      {
-        heading: "Social media & campaigns",
-        body: "An always-on social presence sets the group's public look and feel — international awareness days, seasonal greetings, and CSR initiatives like the “Be the reason Lofou turns green” tree-planting campaign. Each set starts from a single key visual and adapts across formats without losing consistency.",
-        collage: true,
+        heading: "Awareness & ESG",
+        body: "A run of social posts across international awareness days and ESG initiatives — consistent with the new look, and built to earn engagement.",
         images: [
           {
             src: "/work/fameline-holding-group/tree-planting.webp",
-            alt: "“Be the reason Lofou turns Green” tree-planting campaign invitation",
-            width: 1080,
-            height: 1080,
-          },
-          {
-            src: "/work/fameline-holding-group/breast-cancer.webp",
-            alt: "Breast Cancer Awareness event invitation",
+            alt: "Tree-planting campaign social post",
             width: 1080,
             height: 1080,
           },
@@ -171,32 +244,11 @@ export const caseStudies: CaseStudy[] = [
             width: 1080,
             height: 1080,
           },
-        ],
-      },
-      {
-        heading: "Video & motion",
-        body: "Short motion pieces built for social feeds — the group's global presence, key statistics, and team features — designed to hold attention with or without sound.",
-        videos: [
           {
-            src: "/work/fameline-holding-group/video/global-presence.mp4",
-            poster: "/work/fameline-holding-group/video/global-presence.webp",
-            width: 720,
-            height: 1280,
-            title: "Global presence",
-          },
-          {
-            src: "/work/fameline-holding-group/video/fhg-statistics.mp4",
-            poster: "/work/fameline-holding-group/video/fhg-statistics.webp",
-            width: 720,
-            height: 1280,
-            title: "Group statistics",
-          },
-          {
-            src: "/work/fameline-holding-group/video/meet-the-team.mp4",
-            poster: "/work/fameline-holding-group/video/meet-the-team.webp",
-            width: 720,
-            height: 1280,
-            title: "Meet the team",
+            src: "/work/fameline-holding-group/breast-cancer.webp",
+            alt: "Breast Cancer Awareness social post",
+            width: 1080,
+            height: 1080,
           },
         ],
       },

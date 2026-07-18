@@ -5,11 +5,13 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import {
   publishedCaseStudies,
   getCaseStudy,
   type CaseStudyImage,
   type CaseStudyVideo,
+  type CaseStudyBeforeAfter,
 } from "@/lib/case-studies";
 
 function GalleryFigure({ img }: { img: CaseStudyImage }) {
@@ -100,6 +102,55 @@ function VideoFigure({ video }: { video: CaseStudyVideo }) {
   );
 }
 
+function LabelledFrame({ img, label }: { img: CaseStudyImage; label: string }) {
+  return (
+    <figure className="card-glass overflow-hidden rounded-2xl">
+      <div className="relative" style={{ aspectRatio: `${img.width} / ${img.height}` }}>
+        <Image
+          src={img.src}
+          alt={img.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className="object-cover"
+        />
+        <span className="absolute left-3 top-3 rounded-full bg-bg-elevated/85 px-2.5 py-1 text-[11px] uppercase tracking-[0.2em] text-text-muted backdrop-blur">
+          {label}
+        </span>
+      </div>
+    </figure>
+  );
+}
+
+function BeforeAfter({ data }: { data: CaseStudyBeforeAfter }) {
+  if (data.slider) {
+    return <BeforeAfterSlider before={data.before} after={data.after} />;
+  }
+  return (
+    <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <LabelledFrame img={data.before} label="Before" />
+      <LabelledFrame img={data.after} label="After" />
+    </div>
+  );
+}
+
+function SectionImages({ images }: { images: CaseStudyImage[] }) {
+  // Single image showcases full width; multiple images use a 2-column grid.
+  if (images.length === 1) {
+    return (
+      <div className="mt-8">
+        <GalleryFigure img={images[0]} />
+      </div>
+    );
+  }
+  return (
+    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {images.map((img) => (
+        <GalleryFigure key={img.src} img={img} />
+      ))}
+    </div>
+  );
+}
+
 function SectionVideos({ videos }: { videos: CaseStudyVideo[] }) {
   if (videos.length === 1) {
     const video = videos[0];
@@ -187,7 +238,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
               ))}
             </ul>
 
-            {study.cover ? (
+            {study.hideHeroImage ? null : study.cover ? (
               <div className="card-glass mt-12 overflow-hidden rounded-2xl">
                 <div className="relative" style={{ aspectRatio: `${study.cover.width} / ${study.cover.height}` }}>
                   <Image
@@ -211,41 +262,52 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
               </div>
             )}
 
-            {study.sections.map((section, i) => (
-              <Reveal key={i} className="mt-16">
-                <section>
-                  {section.heading && (
-                    <h2 className="font-display text-2xl font-normal tracking-tight text-text sm:text-3xl">
-                      {section.heading}
-                    </h2>
-                  )}
-                  <p className="mt-4 max-w-2xl leading-relaxed text-text-muted">
-                    {section.body}
-                  </p>
-                  {section.comingSoon ? (
-                    <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
-                      <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
-                        Photos coming soon
-                      </span>
-                    </div>
-                  ) : section.collage && section.images && section.images.length > 0 ? (
-                    <Collage images={section.images} />
-                  ) : (
-                    section.images &&
-                    section.images.length > 0 && (
-                      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        {section.images.map((img) => (
-                          <GalleryFigure key={img.src} img={img} />
-                        ))}
+            {study.sections.map((section, i) => {
+              const partNo = section.part
+                ? study.sections.slice(0, i + 1).filter((s) => s.part).length
+                : 0;
+              return (
+                <Reveal key={i} className={section.part ? "mt-20" : "mt-16"}>
+                  <section>
+                    {section.part ? (
+                      <div className="border-t border-border pt-10">
+                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-text-muted">
+                          Part {String(partNo).padStart(2, "0")}
+                        </p>
+                        <h2 className="gradient-text font-display mt-2 text-4xl font-normal tracking-tight sm:text-5xl">
+                          {section.heading}
+                        </h2>
                       </div>
-                    )
-                  )}
-                  {section.videos && section.videos.length > 0 && (
-                    <SectionVideos videos={section.videos} />
-                  )}
-                </section>
-              </Reveal>
-            ))}
+                    ) : (
+                      section.heading && (
+                        <h3 className="font-display text-2xl font-normal tracking-tight text-text sm:text-3xl">
+                          {section.heading}
+                        </h3>
+                      )
+                    )}
+                    <p className="mt-4 max-w-2xl leading-relaxed text-text-muted">
+                      {section.body}
+                    </p>
+                    {section.beforeAfter && <BeforeAfter data={section.beforeAfter} />}
+                    {section.comingSoon ? (
+                      <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
+                        <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
+                          Photos coming soon
+                        </span>
+                      </div>
+                    ) : section.collage && section.images && section.images.length > 0 ? (
+                      <Collage images={section.images} />
+                    ) : (
+                      section.images &&
+                      section.images.length > 0 && <SectionImages images={section.images} />
+                    )}
+                    {section.videos && section.videos.length > 0 && (
+                      <SectionVideos videos={section.videos} />
+                    )}
+                  </section>
+                </Reveal>
+              );
+            })}
 
             {study.gallery.length > 0 && (
               <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
