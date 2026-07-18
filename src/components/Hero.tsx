@@ -32,7 +32,7 @@ export default function Hero() {
             Specialized in <RotatingWord words={introduction.whatIDo} />
           </p>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted sm:text-xl">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-text sm:text-xl">
             {profile.heroLine}
           </p>
 
@@ -63,7 +63,7 @@ export default function Hero() {
                   key={item}
                   className={`transition-soft rounded-full border px-4 py-1.5 text-sm font-medium backdrop-blur hover:-translate-y-0.5 ${
                     TAG_STYLES[i % TAG_STYLES.length]
-                  } ${i % 3 === 1 ? "sm:ml-4" : ""}`}
+                  }`}
                 >
                   {item}
                 </li>
