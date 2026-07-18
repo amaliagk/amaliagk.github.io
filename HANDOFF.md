@@ -110,9 +110,11 @@ Tooling is installed `--no-save` (reinstall if missing): `sharp` (ships with Nex
 
 ## Recent commits
 ```
+a860d0e Ignore Word autosave temp files
+1e988b3 Reposition copy: multi-brand emphasis and AI fluency
+bb99d4e Restructure Selected Work into four project case studies
+af741d8 Reposition for iGaming-first targeting; document project-led restructure
+abcc6e4 Add session handoff docs for continuity
 1be9b79 Restructure Exhibitions into 3 event sections with collage galleries
 d5b9ad0 Add videos and print pieces to case studies
-d2e3b58 Populate 3 case studies with real work; fix heading descenders
-81c7331 Add case-study pages, metadata, and share-readiness
-73e5d3e Initial commit: portfolio v1 baseline
 ```
