@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { publishedCaseStudies } from "@/lib/case-studies";
 import { siteUrl } from "@/lib/site";
 
+// Required for `output: "export"` — emit sitemap.xml as a static file at build.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
