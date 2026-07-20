@@ -53,6 +53,8 @@ export default function Contact() {
           <Reveal delay={200}>
             <a
               href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-glass btn-glass-primary transition-soft mt-10 inline-block rounded-full px-8 py-3 text-sm font-semibold text-text hover:-translate-y-0.5"
             >
               <span className="relative z-10">Download CV</span>

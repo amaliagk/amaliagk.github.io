@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import BrowserMockup from "@/components/BrowserMockup";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import {
   publishedCaseStudies,
@@ -13,6 +15,7 @@ import {
   type CaseStudyImage,
   type CaseStudyVideo,
   type CaseStudyBeforeAfter,
+  type CaseStudySlideComparison,
 } from "@/lib/case-studies";
 
 /** Render a string as one or more paragraphs, split on blank lines. */
@@ -118,6 +121,23 @@ function VideoFigure({ video }: { video: CaseStudyVideo }) {
   );
 }
 
+/** A single still + a single video shown side by side. The two columns are
+ *  sized in proportion to each asset's aspect ratio, so the still and the video
+ *  render at an identical height without cropping either. Reuses the existing
+ *  figure components; only rendered for a section carrying exactly one of each. */
+function MediaPair({ image, video }: { image: CaseStudyImage; video: CaseStudyVideo }) {
+  const pairCols = `${image.width / image.height}fr ${video.width / video.height}fr`;
+  return (
+    <div
+      className="mt-8 grid grid-cols-1 items-start gap-6 sm:grid-cols-[var(--pair-cols)]"
+      style={{ "--pair-cols": pairCols } as CSSProperties}
+    >
+      <GalleryFigure img={image} />
+      <VideoFigure video={video} />
+    </div>
+  );
+}
+
 function LabelledFrame({ img, label }: { img: CaseStudyImage; label: string }) {
   return (
     <figure className="card-glass overflow-hidden rounded-2xl">
@@ -145,6 +165,55 @@ function BeforeAfter({ data }: { data: CaseStudyBeforeAfter }) {
     <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
       <LabelledFrame img={data.before} label="Before" />
       <LabelledFrame img={data.after} label="After" />
+    </div>
+  );
+}
+
+function SlideStrip({
+  label,
+  images,
+  emphasis,
+}: {
+  label: string;
+  images: CaseStudyImage[];
+  emphasis?: boolean;
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-2.5">
+        <span
+          className={`h-2 w-2 flex-none rounded-full ${emphasis ? "bg-primary" : "bg-border"}`}
+        />
+        <span className="text-xs font-semibold uppercase tracking-[0.25em] text-text-muted">
+          {label}
+        </span>
+      </div>
+      {/* One horizontal strip per state on desktop; falls to a 2x2 so slides
+          stay legible on narrow screens. No 1:1 pairing between the two sets. */}
+      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {images.map((img) => (
+          <figure key={img.src} className="card-glass overflow-hidden rounded-xl">
+            <div className="relative" style={{ aspectRatio: `${img.width} / ${img.height}` }}>
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(max-width: 640px) 45vw, 220px"
+                className="object-cover"
+              />
+            </div>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SlideComparison({ data }: { data: CaseStudySlideComparison }) {
+  return (
+    <div className="mt-8 space-y-8">
+      <SlideStrip label="Before" images={data.before} />
+      <SlideStrip label="After" images={data.after} emphasis />
     </div>
   );
 }
@@ -282,6 +351,13 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
               const partNo = section.part
                 ? study.sections.slice(0, i + 1).filter((s) => s.part).length
                 : 0;
+              // One still + one video read best as an equal pair rather than a
+              // full-width image stacked over a narrower video.
+              const isMediaPair =
+                !section.comingSoon &&
+                !section.collage &&
+                section.images?.length === 1 &&
+                section.videos?.length === 1;
               return (
                 <Reveal key={i} className={section.part ? "mt-20" : "mt-16"}>
                   <section>
@@ -317,20 +393,32 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                       <YouTubeEmbed id={section.youtube.id} title={section.youtube.title} />
                     )}
                     {section.beforeAfter && <BeforeAfter data={section.beforeAfter} />}
-                    {section.comingSoon ? (
-                      <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
-                        <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
-                          Photos coming soon
-                        </span>
-                      </div>
-                    ) : section.collage && section.images && section.images.length > 0 ? (
-                      <Collage images={section.images} />
-                    ) : (
-                      section.images &&
-                      section.images.length > 0 && <SectionImages images={section.images} />
+                    {section.slideComparison && (
+                      <SlideComparison data={section.slideComparison} />
                     )}
-                    {section.videos && section.videos.length > 0 && (
-                      <SectionVideos videos={section.videos} />
+                    {section.websiteMockup && (
+                      <BrowserMockup data={section.websiteMockup} />
+                    )}
+                    {isMediaPair ? (
+                      <MediaPair image={section.images![0]} video={section.videos![0]} />
+                    ) : (
+                      <>
+                        {section.comingSoon ? (
+                          <div className="mt-6 flex aspect-[16/5] items-center justify-center rounded-2xl border border-dashed border-border bg-bg-elevated/50">
+                            <span className="text-xs uppercase tracking-[0.25em] text-text-muted">
+                              Photos coming soon
+                            </span>
+                          </div>
+                        ) : section.collage && section.images && section.images.length > 0 ? (
+                          <Collage images={section.images} />
+                        ) : (
+                          section.images &&
+                          section.images.length > 0 && <SectionImages images={section.images} />
+                        )}
+                        {section.videos && section.videos.length > 0 && (
+                          <SectionVideos videos={section.videos} />
+                        )}
+                      </>
                     )}
                   </section>
                 </Reveal>

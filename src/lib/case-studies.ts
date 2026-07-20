@@ -25,7 +25,24 @@ export type CaseStudyBeforeAfter = {
   slider?: boolean;
 };
 
+/** Grouped old/new slide sets shown as two labelled strips. The two sets are a
+ *  whole-system comparison, NOT a 1:1 slide-to-slide correspondence. */
+export type CaseStudySlideComparison = {
+  before: CaseStudyImage[];
+  after: CaseStudyImage[];
+};
+
 export type CaseStudyYouTube = { id: string; title: string };
+
+/** A website presented as a paired desktop browser window + phone mockup. */
+export type CaseStudyWebsiteMockup = {
+  /** Displayed in the address bar (e.g. "fhg.global"). */
+  url: string;
+  /** Optional live link rendered as a "Visit the live site" action. */
+  href?: string;
+  desktop: CaseStudyImage;
+  mobile: CaseStudyImage;
+};
 
 export type CaseStudySection = {
   heading?: string;
@@ -47,6 +64,10 @@ export type CaseStudySection = {
   videos?: CaseStudyVideo[];
   /** Before/after comparison (rendered after the body, before images). */
   beforeAfter?: CaseStudyBeforeAfter;
+  /** Grouped old/new slide strips (rendered after the body). Not a 1:1 pairing. */
+  slideComparison?: CaseStudySlideComparison;
+  /** Website shown as a desktop browser + phone mockup pair. */
+  websiteMockup?: CaseStudyWebsiteMockup;
   /** Top-level part heading (large gradient display + numbered eyebrow) vs a
    *  normal sub-chapter heading. */
   part?: boolean;
@@ -167,10 +188,10 @@ export const caseStudies: CaseStudy[] = [
         body: "A full stationery suite on the new identity — folder, letterhead, business cards, compliment slips, and envelopes.",
         images: [
           {
-            src: "/work/fameline-holding-group/stationery.webp",
+            src: "/work/fameline-holding-group/stationery-suite.webp",
             alt: "Fameline stationery suite mockup — folder, letterhead, business cards, compliment slips, envelopes",
-            width: 1800,
-            height: 1350,
+            width: 1469,
+            height: 1213,
           },
         ],
       },
@@ -197,6 +218,26 @@ export const caseStudies: CaseStudy[] = [
             height: 1131,
           },
         ],
+      },
+      {
+        heading: "Website",
+        body: "The final piece of the rebrand, carried online. I led the creative direction for the Group's website facelift — applying the refreshed identity across the site, guiding art direction and imagery, and shaping the content so the Group's scale, services, and companies read clearly on every screen.",
+        websiteMockup: {
+          url: "fhg.global",
+          href: "https://fhg.global/",
+          desktop: {
+            src: "/work/fameline-holding-group/website-desktop.webp",
+            alt: "Fameline Holding Group website homepage on desktop — aerial container-ship hero with the 'Relationships Beyond Contracts' headline",
+            width: 1600,
+            height: 1000,
+          },
+          mobile: {
+            src: "/work/fameline-holding-group/website-mobile.webp",
+            alt: "Fameline Holding Group website homepage on mobile — logo, tagline and container-ship hero over the vessel",
+            width: 600,
+            height: 1298,
+          },
+        },
       },
       {
         part: true,
@@ -269,72 +310,147 @@ export const caseStudies: CaseStudy[] = [
     slug: "global-stss",
     title: "Global STSS Holding Group",
     subtitle:
-      "Turning complex information into clear corporate stories — a launch event, technical print, and motion for a marine-engineering group.",
+      "Creative direction for the Group's rebrand — a distinctive new identity that signals growth and moves the marine business away from convention.",
     client: "Global STSS Holding Group",
     tags: [
-      "Launch event",
-      "Brochure design",
-      "Corporate storytelling",
-      "Motion",
+      "Creative direction",
+      "Rebranding",
+      "Visual identity",
+      "Brand guidelines",
     ],
     cover: {
       src: "/work/global-stss/cover.webp",
-      alt: "Global STSS launch event backdrop wall with the group's family of brand logos",
+      alt: "Global STSS Holding Group rebranded logo — blue-to-turquoise gradient monogram and wordmark",
       width: 1600,
       height: 1067,
     },
+    hideHeroImage: true,
     gallery: [],
     sections: [
       {
-        heading: "Context",
-        body: "Global STSS brings stern tube seal system specialists together under one holding group. The brief behind every deliverable is the same: dense, technical subject matter that has to read clearly and look confident — to partners, clients, and event audiences.",
-      },
-      {
-        heading: "Launch event",
-        body: "The group's launch was built as one branded environment — from the backdrop wall carrying the family of brand logos through to plinths, signage, and staging.",
-        collage: true,
-        images: [
-          { src: "/work/global-stss/launch-1.webp", alt: "Global STSS launch, event space", width: 1600, height: 1067 },
-          { src: "/work/global-stss/launch-2.webp", alt: "Global STSS launch, branded detail", width: 1600, height: 1067 },
-          { src: "/work/global-stss/launch-3.webp", alt: "Global STSS launch, guests", width: 1600, height: 1066 },
-          { src: "/work/global-stss/launch-4.webp", alt: "Global STSS launch, staging", width: 1600, height: 1066 },
-          { src: "/work/global-stss/launch-5.webp", alt: "Global STSS launch, branded elements", width: 1600, height: 1067 },
-        ],
-      },
-      {
-        heading: "Print — Luminar Marine brochure",
-        body: "A product brochure for Luminar Marine's stern tube seal system: specification-heavy content structured into clean spreads, with hierarchy and diagrams doing the heavy lifting.",
-        images: [
-          {
-            src: "/work/global-stss/brochure-1.webp",
-            alt: "Luminar Marine stern tube seal system brochure, cover",
-            width: 1132,
-            height: 1600,
+        part: true,
+        heading: "Rebrand",
+        eyebrow: "Creative Direction · Visual Identity",
+        body: "As Global STSS Holding Group expanded, it needed a stronger identity that reflected its growth and positioned it more clearly in the market. I provided the creative direction for the rebrand.\n\nThe new identity introduces a distinctive colour palette that moves away from the marine industry's more conventional and traditional visual language.",
+        beforeAfter: {
+          before: {
+            src: "/work/global-stss/logo-before.webp",
+            alt: "Global STSS logo before the rebrand — teal globe mark and Stern Tube Sealing Solutions wordmark",
+            width: 1040,
+            height: 771,
           },
-          {
-            src: "/work/global-stss/brochure-2.webp",
-            alt: "Luminar Marine brochure, inside spread",
-            width: 1132,
-            height: 1600,
+          after: {
+            src: "/work/global-stss/logo-after.webp",
+            alt: "Global STSS logo after the rebrand — blue-to-turquoise gradient monogram and Holding Group wordmark",
+            width: 1040,
+            height: 771,
           },
+        },
+        images: [
           {
-            src: "/work/global-stss/brochure-3.webp",
-            alt: "Luminar Marine brochure, inside spread",
-            width: 1132,
-            height: 1600,
+            src: "/work/global-stss/brand-guidelines.webp",
+            alt: "Global STSS brand guidelines — logo, subsidiary marks, primary colour palette, and typography",
+            width: 1800,
+            height: 1032,
+            caption: "Brand guidelines — logo system, the new colour palette, and typography.",
           },
         ],
       },
       {
-        heading: "Motion",
-        body: "The group's website launch, announced with a short motion piece for its social channels.",
+        heading: "Presentation Rebrand",
+        body: "A before-and-after comparison showing how the presentation system was reworked under my creative direction to create a stronger, more consistent identity for future brand materials.",
+        slideComparison: {
+          before: [
+            {
+              src: "/work/global-stss/presentation-before-1.webp",
+              alt: "Old presentation title slide — 'Aftermarket Marine Sterntube Seals', dark navy layout co-branded with SKF",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-before-2.webp",
+              alt: "Old presentation slide — 'The story behind Global STSS' on a cream background with a stock cargo-ship photo",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-before-3.webp",
+              alt: "Old presentation slide — 'Opportunity' on a cream background with a stock propeller photo",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-before-4.webp",
+              alt: "Old presentation slide — 'Market disruption' navy layout with a 3D pie chart",
+              width: 1280,
+              height: 720,
+            },
+          ],
+          after: [
+            {
+              src: "/work/global-stss/presentation-after-1.webp",
+              alt: "New presentation title slide — 'A new Global Force in Marine Sealing' on the blue-to-turquoise gradient identity with subsidiary logos",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-after-2.webp",
+              alt: "New presentation slide — 'Group structure' laying out the Luminar Marine, Global STSS and Bolt Cargo subsidiaries",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-after-3.webp",
+              alt: "New presentation slide — 'Who we are' gradient layout highlighting expertise, innovation and trusted partnerships",
+              width: 1280,
+              height: 720,
+            },
+            {
+              src: "/work/global-stss/presentation-after-4.webp",
+              alt: "New presentation slide — 'Our mission' setting out the Group's strategic goals",
+              width: 1280,
+              height: 720,
+            },
+          ],
+        },
+      },
+      {
+        heading: "Print Collateral",
+        body: "A selection of printed brand applications designed to extend the identity across essential corporate materials.",
+        images: [
+          {
+            src: "/work/global-stss/print-business-cards.webp",
+            alt: "Global STSS business cards — front with the new logo, reverse with contact details and QR code",
+            width: 1500,
+            height: 1154,
+          },
+          {
+            src: "/work/global-stss/print-brochure.webp",
+            alt: "Luminar Marine brochure — cover and inside spread on the new identity",
+            width: 1600,
+            height: 1230,
+          },
+        ],
+      },
+      {
+        heading: "Digital Brand Applications",
+        body: "A selection of campaign assets showing how the refreshed identity was applied across digital communication.",
+        images: [
+          {
+            src: "/work/global-stss/digital-posidonia.webp",
+            alt: "Global STSS Posidonia Expo social announcement — 'Visit us at Posidonia Expo', stand No. 321, Hall 2, 1–5 June 2026, on the blue-to-turquoise gradient identity",
+            width: 1080,
+            height: 1080,
+            caption: "Posidonia Expo Participation",
+          },
+        ],
         videos: [
           {
             src: "/work/global-stss/video/announcement.mp4",
             poster: "/work/global-stss/video/announcement.webp",
             width: 1280,
             height: 720,
-            title: "Global STSS website announcement",
+            title: "Website announcement",
           },
         ],
       },

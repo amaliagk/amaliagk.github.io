@@ -45,6 +45,8 @@ export default function Hero() {
             </a>
             <a
               href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-glass btn-glass-secondary transition-soft rounded-full px-7 py-3 text-sm font-semibold text-text hover:-translate-y-0.5"
             >
               <span className="relative z-10">Download CV</span>

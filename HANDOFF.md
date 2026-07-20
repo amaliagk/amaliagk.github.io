@@ -1,6 +1,6 @@
 # Handoff — Portfolio project
 
-_Living status doc. Update at the end of each working session. Last updated: 2026-07-17._
+_Living status doc. Update at the end of each working session. Last updated: 2026-07-19._
 
 ## What this is
 Portfolio landing site for **Amalia Gkigkolian**, graphic designer & marketing
@@ -56,8 +56,8 @@ Detail + ownership for each below.
 ### Projects (restructured 2026-07-17)
 | Slug | State |
 |---|---|
-| `fameline-holding-group` | ✅ Flagship, narrative chapters: Context → Rebrand & creative direction (rebrand video; before/after pending) → Brand family (5 logos) → Applications (cards, letterhead) → Social collage (4 posts) → Video & motion (3 videos) |
-| `global-stss` | ✅ Launch-event collage (5), Luminar Marine brochure (3 pages), announcement video; presentations chapter when provided |
+| `fameline-holding-group` | ✅ Flagship. **Rebranding** part: logo before/after → presentation before/after → stationery → brand guidelines → **Website facelift** (added 2026-07-19: creative-direction copy + a desktop-browser + phone mockup of the live fhg.global, captured via Playwright; new `BrowserMockup` component + `websiteMockup` section field). **Digital Campaigns** part: 4 rebrand videos → Awareness & ESG social posts |
+| `global-stss` | ✅ Reworked into a **rebrand** case study: creative-direction copy → logo Before/After (Fameline-style matched pair) → brand-guidelines board → Print Collateral (business-card + brochure studio mockups from the `.jpg` sources — grey backdrop + shadow baked in, center-cropped to a shared 1.30 ratio, full-bleed). Old `launch-*`, `brochure-*`, `video/*` assets in `public/work/global-stss/` are now unreferenced (kept, not deleted) |
 | `eastmed-exhibition` | ✅ 7 booth photos (Elite Blue Group etc.); more content coming |
 | `sailing-regatta` | ⬜ `comingSoon: true` → non-clickable teaser card on home; page excluded from build/sitemap until assets land |
 
