@@ -16,6 +16,7 @@ import {
   type CaseStudyVideo,
   type CaseStudyBeforeAfter,
   type CaseStudySlideComparison,
+  type CaseStudyConceptPair,
 } from "@/lib/case-studies";
 
 /** Render a string as one or more paragraphs, split on blank lines. */
@@ -154,6 +155,25 @@ function LabelledFrame({ img, label }: { img: CaseStudyImage; label: string }) {
         </span>
       </div>
     </figure>
+  );
+}
+
+/** One campaign concept in two formats: the social-media visual beside its
+ *  Google Ads adaptation. The columns are sized in proportion to each asset's
+ *  aspect ratio, so the tall social post and the wide banner render at an
+ *  identical height without cropping either (the MediaPair technique). Stacks
+ *  vertically on narrow screens, keeping the pair clearly grouped. */
+function ConceptPair({ pair }: { pair: CaseStudyConceptPair }) {
+  const { social, googleAd } = pair;
+  const pairCols = `${social.width / social.height}fr ${googleAd.width / googleAd.height}fr`;
+  return (
+    <div
+      className="mt-8 grid grid-cols-1 items-start gap-6 sm:grid-cols-[var(--pair-cols)]"
+      style={{ "--pair-cols": pairCols } as CSSProperties}
+    >
+      <LabelledFrame img={social} label="Social Media" />
+      <LabelledFrame img={googleAd} label="Google Ads" />
+    </div>
   );
 }
 
@@ -300,7 +320,7 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
           <div className="mx-auto max-w-4xl">
             <Link
               href="/#work"
-              className="transition-soft text-sm font-medium text-text-muted hover:text-primary-strong"
+              className="nav-link text-sm font-medium text-text-muted"
             >
               ← All work
             </Link>
@@ -399,6 +419,9 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
                     {section.websiteMockup && (
                       <BrowserMockup data={section.websiteMockup} />
                     )}
+                    {section.conceptPair && (
+                      <ConceptPair pair={section.conceptPair} />
+                    )}
                     {isMediaPair ? (
                       <MediaPair image={section.images![0]} video={section.videos![0]} />
                     ) : (
@@ -436,13 +459,13 @@ export default async function CaseStudyPage(props: PageProps<"/work/[slug]">) {
             <nav className="mt-20 flex items-center justify-between border-t border-border pt-8 text-sm">
               <Link
                 href={`/work/${prev.slug}`}
-                className="transition-soft max-w-[45%] text-text-muted hover:text-primary-strong"
+                className="nav-link max-w-[45%] text-text-muted"
               >
                 ← {prev.title}
               </Link>
               <Link
                 href={`/work/${next.slug}`}
-                className="transition-soft max-w-[45%] text-right text-text-muted hover:text-primary-strong"
+                className="nav-link max-w-[45%] text-right text-text-muted"
               >
                 {next.title} →
               </Link>

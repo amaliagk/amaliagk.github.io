@@ -44,6 +44,13 @@ export type CaseStudyWebsiteMockup = {
   mobile: CaseStudyImage;
 };
 
+/** One campaign concept shown in two formats — the social-media visual and its
+ *  Google Ads adaptation — paired side by side so they read as the same idea. */
+export type CaseStudyConceptPair = {
+  social: CaseStudyImage;
+  googleAd: CaseStudyImage;
+};
+
 export type CaseStudySection = {
   heading?: string;
   /** Supports multiple paragraphs, split on a blank line. May be empty. */
@@ -68,6 +75,9 @@ export type CaseStudySection = {
   slideComparison?: CaseStudySlideComparison;
   /** Website shown as a desktop browser + phone mockup pair. */
   websiteMockup?: CaseStudyWebsiteMockup;
+  /** A single campaign concept as a social-media + Google Ads pair, sized to an
+   *  equal height (no cropping) side by side; stacks on narrow screens. */
+  conceptPair?: CaseStudyConceptPair;
   /** Top-level part heading (large gradient display + numbered eyebrow) vs a
    *  normal sub-chapter heading. */
   part?: boolean;
@@ -531,6 +541,77 @@ export const caseStudies: CaseStudy[] = [
           { src: "/work/events-exhibitions/eastmed-6.webp", alt: "Exhibition stand signage", width: 1067, height: 1600 },
           { src: "/work/events-exhibitions/eastmed-7.webp", alt: "Exhibition hall view", width: 1600, height: 1067 },
         ],
+      },
+    ],
+  },
+  {
+    slug: "social-casino-ads",
+    title: "Social Casino Ads",
+    subtitle:
+      "A selection of social casino advertising visuals created for social media and Google Ads campaigns, designed to deliver engaging concepts across multiple digital formats.",
+    tags: ["Digital Advertising", "Social Media", "Google Ads"],
+    cover: {
+      src: "/work/social-casino-ads/social-1.webp",
+      alt: "Social casino ad — neon slot machine spilling gold and green coins with a '50,000 GC + 1 free SC' sign-up offer",
+      width: 1080,
+      height: 1350,
+    },
+    hideHeroImage: true,
+    gallery: [],
+    sections: [
+      {
+        heading: "Concept 01",
+        body: "",
+        conceptPair: {
+          social: {
+            src: "/work/social-casino-ads/social-1.webp",
+            alt: "Social media post — a glowing neon slot machine spilling gold and green coins, headlined 'Join today & get 50,000 GC + 1 free SC' with a Sign Up button",
+            width: 1080,
+            height: 1350,
+          },
+          googleAd: {
+            src: "/work/social-casino-ads/google-ad-1.webp",
+            alt: "Google Ads banner of the same concept — the neon slot machine and coins with 'Join today & get 50,000 GC + 1 free SC' and a Sign Up button, in a wide format",
+            width: 1200,
+            height: 628,
+          },
+        },
+      },
+      {
+        heading: "Concept 02",
+        body: "",
+        conceptPair: {
+          social: {
+            src: "/work/social-casino-ads/social-2.webp",
+            alt: "Social media post — an open gift box bursting with gold coins and gems, headlined 'Double the fun from day one!' with 50,000 GC + 1 free SC and 1M GC + 50 free SC offers and a Play Now button",
+            width: 1080,
+            height: 1350,
+          },
+          googleAd: {
+            src: "/work/social-casino-ads/google-ad-2.webp",
+            alt: "Google Ads banner of the same concept — the gift box of coins and gems with 'Double the fun from day one!', the same welcome offers and a Play Now button, in a wide format",
+            width: 1200,
+            height: 628,
+          },
+        },
+      },
+      {
+        heading: "Concept 03",
+        body: "",
+        conceptPair: {
+          social: {
+            src: "/work/social-casino-ads/social-3.webp",
+            alt: "Social media post — a giant golden ticket rising from a treasure chest of coins and gems, headlined 'Claim up to 1M GC + 50 free SC on your first purchase' with a Get Offer button",
+            width: 1080,
+            height: 1350,
+          },
+          googleAd: {
+            src: "/work/social-casino-ads/google-ad-3.webp",
+            alt: "Google Ads banner of the same concept — the golden ticket and treasure chest with 'Claim up to 1M GC + 50 free SC on your first purchase' and a Get Offer button, in a wide format",
+            width: 1200,
+            height: 628,
+          },
+        },
       },
     ],
   },
