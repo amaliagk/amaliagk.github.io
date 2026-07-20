@@ -34,7 +34,7 @@ export default function Contact() {
             <div className="mt-10 flex flex-col items-center gap-3 text-lg text-text-muted">
               <a
                 href={`mailto:${profile.email}`}
-                className="transition-soft hover:text-primary-strong"
+                className="nav-link"
               >
                 {profile.email}
               </a>
@@ -42,7 +42,7 @@ export default function Contact() {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-soft hover:text-primary-strong"
+                className="nav-link"
               >
                 LinkedIn
               </a>

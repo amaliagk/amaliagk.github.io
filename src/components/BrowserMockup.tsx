@@ -107,7 +107,7 @@ export default function BrowserMockup({ data }: { data: CaseStudyWebsiteMockup }
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-soft inline-flex items-center gap-1.5 font-medium text-primary-strong hover:text-secondary-strong"
+            className="nav-link inline-flex items-center gap-1.5 font-medium text-primary-strong"
           >
             Visit the live site
             <ArrowUpRight />

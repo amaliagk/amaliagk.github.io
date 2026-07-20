@@ -54,7 +54,7 @@ function IndexRow({ study }: { study: CaseStudy }) {
           )}
           <span
             aria-hidden="true"
-            className="transition-soft text-2xl text-text-muted group-hover:translate-x-1 group-hover:text-primary-strong"
+            className="transition-soft text-2xl text-text-muted group-hover:translate-x-1 group-hover:text-secondary-strong"
           >
             →
           </span>

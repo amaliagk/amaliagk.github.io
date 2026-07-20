@@ -22,7 +22,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="transition-soft hover:text-text"
+              className="nav-link"
             >
               {link.label}
             </Link>
